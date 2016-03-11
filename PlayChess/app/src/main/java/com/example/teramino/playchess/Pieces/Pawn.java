@@ -7,7 +7,7 @@ import com.example.teramino.playchess.Setup.Square;
 public class Pawn extends Piece
 {	
 	private boolean pawnMoved = false;
-	private Square initialSquare;
+//	private Square initialSquare;
 
 	public Pawn(String n, String c)
 	{
@@ -18,7 +18,7 @@ public class Pawn extends Piece
 	@Override
 	public Square canMove( Piece p, Square [][] s, int squareCol, int squareRow)
 	{
-		System.out.println(this.getName());
+		System.out.println(this.getName()+"\n");
 		
 //		
 //		else if (  p.getsquareColor() == squareColor.lightGray)
@@ -31,10 +31,10 @@ public class Pawn extends Piece
 				{
 					for (int j = 0; j < numCols; j++)
 					{
-						if ( s[i][j].getRow() == squareCol && s[i][j].getCol() == squareRow)
+						if ( s[i][j].getRow() == squareRow && s[i][j].getCol() == squareCol)
 						{
 							// move 2 spaces
-							if (pawnMoved == false && p.getRow() == s[i][j].getRow()  && p.getCol()- 2 == s[i][j].getCol() )
+							if (pawnMoved == false && p.getRow() - 2 == s[i][j].getRow()  && p.getCol() == s[i][j].getCol() )
 							{
 
 								if (s[i][j].getVaccancy() == true)
@@ -44,7 +44,8 @@ public class Pawn extends Piece
 								}
 
 							}
-							else if (p.getRow() == s[i][j].getRow() && p.getCol() == s[i][j].getCol() )
+							// move one space
+							else if (p.getRow() - 1 == s[i][j].getRow() && p.getCol() == s[i][j].getCol() )
 							{
 								if (s[i][j].getVaccancy() == true)
 								{
@@ -53,7 +54,7 @@ public class Pawn extends Piece
 								}
 							}
 							//upLeft
-							else if(p.getRow() == s[i][j].getRow() && p.getCol() == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							else if(p.getRow() - 1 == s[i][j].getRow() && p.getCol() - 1 == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
 							{
 								if (GameManager.getInstance().isProcessingKing() == false)
 								{
@@ -65,7 +66,7 @@ public class Pawn extends Piece
 									return s[i][j];
 							}
 							//upRight
-							else if(p.getRow() == s[i][j].getRow() && p.getCol() == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							else if(p.getRow() - 1 == s[i][j].getRow() && p.getCol() + 1 == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
 							{
 								if (GameManager.getInstance().isProcessingKing() == false)
 								{
@@ -79,6 +80,7 @@ public class Pawn extends Piece
 							else
 							{
 								System.out.println("Can't move there\n");
+								System.out.println("=======");
 								return null;
 							}// end else
 						}// end if

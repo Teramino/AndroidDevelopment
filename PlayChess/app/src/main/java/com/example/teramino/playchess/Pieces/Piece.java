@@ -158,6 +158,7 @@ public class Piece {
     
     public void doMove(Piece [] p, Square [][] s, int x, int y) {
 
+
         for(int i=0; i<p.length;i++)
         {
             if (p[i].isActive() && p[i].isDestroyed() == false )
@@ -165,27 +166,43 @@ public class Piece {
                 Square ss = p[i].canMove( p[i], s, x, y);
                 if (ss != null )
                 {
+                    Drawable d = p[i].image.getDrawable();
 
-                    // transfer image
-                    ImageView oldPiece = (ImageView) p[i].getSquare().getSquare().findViewById(R.id.piece);
-                    oldPiece.setImageDrawable(null);
+                    if (d == null) {
+                        System.out.println("WTF!");
+                        System.out.println("====================");
+                    }
+                    else {
 
-                    ImageView piece = (ImageView) ss.getSquare().findViewById(R.id.piece);
-                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
-                    params.gravity= Gravity.CENTER;
-                    piece.setLayoutParams(params);
-                    // needs to be config based on players color
+                        // transfer image
+                        ImageView newSquare = (ImageView) ss.getSquare().findViewById(R.id.piece);
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
+                        params.gravity = Gravity.CENTER;
+                        newSquare.setLayoutParams(params);
+                        // needs to be config based on players color
 
-                    // need to find how to access Images drawable
-                    piece.setImageDrawable(p[i].image.getDrawable());
+
+
+                        newSquare.setImageDrawable(p[i].image.getDrawable());
+
+                        ImageView oldSquare = (ImageView) p[i].getSquare().getSquare().findViewById(R.id.piece);
+                        oldSquare.setImageDrawable(null);
+
+
+
 //                    // set row and col of piece
-                    // set by call to setSquare
+                        // set by call to setSquare
 //                    myPieces[j].setRow(i);
 //                    myPieces[j].setCol(j);
 
-                    p[i].disableSquare();
-                    p[i].setSquare(ss);
-                    hasMoved = true;
+                        p[i].disableSquare();
+                        p[i].setSquare(ss);
+
+                        // relink piece image with new square image view
+                        p[i].setImage(newSquare);
+
+                        this.hasMoved = true;
+                    }
 
                     if (GameManager.getInstance().getKingCheck() == true && p[i].getColor() == "Black" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getOppPieces(),
@@ -195,6 +212,7 @@ public class Piece {
                             Board.getInstance().getMyKing().getCol()) == true )
                     {
                         System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " still in check");
+                        System.out.println("====================");
 
                         Board.getInstance().cancelMove();
 
@@ -209,6 +227,7 @@ public class Piece {
                             Board.getInstance().getOppKing().getCol()))
                     {
                         System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " still in check");
+                        System.out.println("====================");
 
                         Board.getInstance().cancelMove();
 
@@ -222,6 +241,7 @@ public class Piece {
                             Board.getInstance().getMyKing().getCol()) == true )
                     {
                         System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+                        System.out.println("====================");
 
                         Board.getInstance().cancelMove();
 
@@ -236,6 +256,7 @@ public class Piece {
                             Board.getInstance().getOppKing().getCol()))
                     {
                         System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+                        System.out.println("====================");
 
                         Board.getInstance().cancelMove();
 
@@ -254,11 +275,19 @@ public class Piece {
                 }
                 else // resets after invalid move
                 {
-                    System.out.println("Invalid move...Removing " +Board.getInstance().getPieceList().get(
-                            Board.getInstance().getPieceListCount()-1).getName() + " from piece list\n");
+                    System.out.println("Invalid move...Removing " + Board.getInstance().getPieceList().get(
+                            Board.getInstance().getPieceListCount() - 1).getName() + " from piece list\n");
+                    System.out.println("====================");
 
-                    Board.getInstance().getPieceList().remove(Board.getInstance().getPieceListCount()-1);
-                    Board.getInstance().setPieceListCount(Board.getInstance().getPieceListCount()-1);
+                    Board.getInstance().getPieceList().remove(Board.getInstance().getPieceListCount() - 1);
+                    Board.getInstance().setPieceListCount(Board.getInstance().getPieceListCount() - 1);
+
+                    System.out.println("Piece List: ");
+                    for( ListFactory print : Board.getPieceList())
+                    {
+                        System.out.println(print.getName());
+                    }
+                    System.out.println("====================");
 
                     p[i].setInActive();
 
