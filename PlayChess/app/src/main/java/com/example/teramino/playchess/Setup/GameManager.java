@@ -110,14 +110,17 @@ public class GameManager
 		return pawnFirstMove;
 	}
 
-	public boolean isKingChecked(Piece [] p, Piece king,  Square [][] s, int x, int y)
+	public boolean isKingChecked(Piece [] p, Piece king,  Square [][] s, int row, int col)
 	{
 		processingKing = true;
+
+        System.out.println("King in check?");
 		for(int i=0; i<p.length;i++)
 		{
 			if (p[i].isDestroyed() == false)
 			{
-				Square ss = p[i].canMove( p[i], s, x, y);
+
+				Square ss = p[i].canMove( p[i], s, col, row);
 
 				if(ss != null)
 				{
@@ -129,6 +132,7 @@ public class GameManager
 				else if (i == p.length - 1)
 				{
 					System.out.println(king.getName() +" Not check\n");
+                    System.out.println("====================");
 					processingKing = false;
 					return false;
 				}

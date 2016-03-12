@@ -1,4 +1,5 @@
 package com.example.teramino.playchess.Pieces;
+import com.example.teramino.playchess.Setup.GameManager;
 import com.example.teramino.playchess.Setup.Square;
 
 
@@ -10,221 +11,261 @@ public class Knight extends Piece {
 		color = c;
 	}
 
-//	@Override
-//	public Square canMove( Piece p, Square [][] s, double col, double row) {
-//		System.out.println(this.getName());
-//
-//		if(p == null)
-//			System.out.println("Select a piece\n");
-//		else
-//		{
-//			for (int i = 0; i < numRows; i++)
-//			{
-//				for (int j = 0; j < numCols; j++)
-//				{
-//					if ( s[i][j].getX() == col*size && s[i][j].getY() == row*size )
-//					{
-//
-//						// upLeft
-//						if ( p.getX() - size == s[i][j].getX()  && p.getY() - 2*size  == s[i][j].getY() )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}
-//						// upRight
-//						else if ( p.getX() + size == s[i][j].getX()  && p.getY() - 2*size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor())
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}// downLeft
-//						else if ( p.getX() - size == s[i][j].getX()  && p.getY() + 2*size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}
-//						// downRight
-//						else if ( p.getX() + size == s[i][j].getX()  && p.getY() + 2*size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}
-//						// leftUp
-//						else if ( p.getX() - 2*size == s[i][j].getX()  && p.getY() - size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}
-//						// rightUp
-//						else if ( p.getX() + 2*size == s[i][j].getX()  && p.getY() - size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}
-//						// leftDown
-//						else if ( p.getX() - 2*size == s[i][j].getX()  && p.getY() + size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor())
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//
-//						}
-//						// rightDown
-//						else if ( p.getX() + 2*size== s[i][j].getX()  && p.getY() + size == s[i][j].getY()  )
-//						{
-//							if (s[i][j].getVaccancy() == true)
-//							{
-//								return s[i][j];
-//							}
-//							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
-//							{
-//								if (gameManager.getInstance().isProcessingKing() == false)
-//								{
-//									p.takePiece(s[i][j].getPiece());
-//									return s[i][j];
-//								}
-//								else
-//									return s[i][j];
-//							}
-//							else
-//							{
-//								System.out.println("Blocked\n");
-//								return null;
-//							}
-//						}
-//						else
-//						{
-//							System.out.println("Can't move there\n");
-//							return null;
-//						}
-//					}// end if
-//				}// end for
-//			}// end for
-//		}// end else
-//		return null;
-//	} // end canMove
+	@Override
+	public Square canMove( Piece p, Square [][] s, int squareCol, int squareRow) {
+		System.out.println(this.getName());
+
+		if(p == null)
+			System.out.println("Select a piece\n");
+		else
+		{
+			for (int i = 0; i < numRows; i++)
+			{
+				for (int j = 0; j < numCols; j++)
+				{
+					if ( s[i][j].getCol() == squareCol && s[i][j].getRow() == squareRow)
+					{
+
+						// upLeft
+						if ( p.getCol() - 1 == s[i][j].getCol()  && p.getRow() - 2  == s[i][j].getRow() )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else
+									return s[i][j];
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}
+						// upRight
+						else if ( p.getCol() + 1 == s[i][j].getCol()  && p.getRow() - 2 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor())
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}// downLeft
+						else if ( p.getCol() - 1 == s[i][j].getCol()  && p.getRow() + 2 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}
+						// downRight
+						else if ( p.getCol() + 1== s[i][j].getCol()  && p.getRow() + 2 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}
+						// leftUp
+						else if ( p.getCol() - 2 == s[i][j].getCol()  && p.getRow() - 1 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}
+						// rightUp
+						else if ( p.getCol() + 2 == s[i][j].getCol()  && p.getRow() - 1 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else
+								{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}
+						// leftDown
+						else if ( p.getCol() - 2 == s[i][j].getCol()  && p.getRow() + 1 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor())
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+
+						}
+						// rightDown
+						else if ( p.getCol() + 2== s[i][j].getCol()  && p.getRow() + 1 == s[i][j].getRow()  )
+						{
+							if (s[i][j].getVaccancy() == true)
+							{
+								System.out.println("====================");
+								return s[i][j];
+							}
+							else if(s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+							{
+								if (GameManager.getInstance().isProcessingKing() == false)
+								{
+									p.takePiece(s[i][j].getPiece());
+									System.out.println("====================");
+									return s[i][j];
+								}
+								else{
+									System.out.println("====================");
+									return s[i][j];
+								}
+							}
+							else
+							{
+								System.out.println("Blocked\n");
+								System.out.println("====================");
+								return null;
+							}
+						}
+						else
+						{
+							System.out.println("Can't move there\n");
+							System.out.println("====================");
+							return null;
+						}
+					}// end if
+				}// end for
+			}// end for
+		}// end else
+		return null;
+	} // end canMove
 }// end knight

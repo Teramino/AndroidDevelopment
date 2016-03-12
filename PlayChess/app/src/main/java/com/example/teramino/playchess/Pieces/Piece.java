@@ -87,8 +87,8 @@ public class Piece {
 
     public void setSquare(Square s) {
         this.s = s;
-        this.row = s.getRow();
-        this.col = s.getCol();
+//        this.row = s.getRow();
+//        this.col = s.getCol();
 
         s.setPiece(this);
     }
@@ -151,19 +151,19 @@ public class Piece {
         System.out.println(p.getName() + " Jumped by " + this.getName() + "\n");
     }
 
-    public Square canMove(Piece p, Square [][] s, int x, int y)
+    public Square canMove(Piece p, Square [][] s, int squareCol, int squareRow)
     {
         return null;
     }
     
-    public void doMove(Piece [] p, Square [][] s, int x, int y) {
+    public void doMove(Piece [] p, Square [][] s, int squareCol, int squareRow) {
 
 
         for(int i=0; i<p.length;i++)
         {
             if (p[i].isActive() && p[i].isDestroyed() == false )
             {
-                Square ss = p[i].canMove( p[i], s, x, y);
+                Square ss = p[i].canMove( p[i], s, squareCol, squareRow);
                 if (ss != null )
                 {
                     Drawable d = p[i].image.getDrawable();
@@ -174,32 +174,34 @@ public class Piece {
                     }
                     else {
 
-                        // transfer image
-                        ImageView newSquare = (ImageView) ss.getSquare().findViewById(R.id.piece);
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
-                        params.gravity = Gravity.CENTER;
-                        newSquare.setLayoutParams(params);
-                        // needs to be config based on players color
+                        transferImage(ss, p[i], ss.getCol(), ss.getRow());
 
-
-
-                        newSquare.setImageDrawable(p[i].image.getDrawable());
-
-                        ImageView oldSquare = (ImageView) p[i].getSquare().getSquare().findViewById(R.id.piece);
-                        oldSquare.setImageDrawable(null);
-
-
-
-//                    // set row and col of piece
-                        // set by call to setSquare
-//                    myPieces[j].setRow(i);
-//                    myPieces[j].setCol(j);
-
-                        p[i].disableSquare();
-                        p[i].setSquare(ss);
-
-                        // relink piece image with new square image view
-                        p[i].setImage(newSquare);
+//                        // transfer image
+//                        ImageView newSquare = (ImageView) ss.getSquare().findViewById(R.id.piece);
+//                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
+//                        params.gravity = Gravity.CENTER;
+//                        newSquare.setLayoutParams(params);
+//                        // needs to be config based on players color
+//
+//
+//
+//                        newSquare.setImageDrawable(p[i].image.getDrawable());
+//
+//                        ImageView oldSquare = (ImageView) p[i].getSquare().getSquare().findViewById(R.id.piece);
+//                        oldSquare.setImageDrawable(null);
+//
+//
+//
+////                    // set row and col of piece
+//                        // set by call to setSquare
+////                    myPieces[j].setRow(i);
+////                    myPieces[j].setCol(j);
+//
+//                        p[i].disableSquare();
+//                        p[i].setSquare(ss);
+//
+//                        // relink piece image with new square image view
+//                        p[i].setImage(newSquare);
 
                         this.hasMoved = true;
                     }
@@ -297,6 +299,32 @@ public class Piece {
 
             }
         }
+    }
+
+    public void transferImage(Square ss, Piece p, int newSqaureCol, int newSqaureRow ){
+        // transfer image
+        ImageView newSquare = (ImageView) ss.getSquare().findViewById(R.id.piece);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
+        params.gravity = Gravity.CENTER;
+        newSquare.setLayoutParams(params);
+        // needs to be config based on players color
+
+
+        newSquare.setImageDrawable(p.image.getDrawable());
+
+        ImageView oldSquare = (ImageView) p.getSquare().getSquare().findViewById(R.id.piece);
+        oldSquare.setImageDrawable(null);
+
+
+        p.disableSquare();
+        // row and column are set by call to setSquare
+        p.setSquare(ss);
+
+        p.setRow(newSqaureRow);
+        p.setCol(newSqaureCol);
+
+        // relink piece image with new square image view
+        p.setImage(newSquare);
     }
 
 }

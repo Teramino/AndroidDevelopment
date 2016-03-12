@@ -2,6 +2,7 @@ package com.example.teramino.playchess.Setup;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -340,6 +341,8 @@ public class Board
 									contains = true;
 									break;
 								}
+
+                                // I dont think this block is needed
 //								// if there is a click off the board
 //								else if (i == getBoardSquare().length - 1 && j == getBoardSquare()[i].length - 1) {
 //
@@ -375,7 +378,7 @@ public class Board
 								loaderY = row;
 								Loader();
 
-								if (activePiece.getClass().toString().equalsIgnoreCase("class pieceClass.King")) {
+								if (activePiece.getClass().toString().equalsIgnoreCase("class com.example.teramino.playchess.Pieces.King")) {
 
 									activePiece.doMove(oppPieces, getBoardSquare(), col, row);
 
@@ -385,6 +388,7 @@ public class Board
 								}
 
 								if (activePiece != null) {
+                                    System.out.print("OPP_");
 									GameManager.getInstance().setKingCheck(
 											GameManager.getInstance().isKingChecked(getMyPieces(),
 													oppKing, getSquares(), oppKing.getRow(), oppKing.getCol()));
@@ -484,8 +488,32 @@ public class Board
 	public void cancelMove() {
 		if (activePiece != null && activePiece.getHasMoved() == true)
 		{
-			activePiece.disableSquare();
-			activePiece.setSquare(getBoardSquare()[oldRow][oldCol]);
+
+            Drawable d = activePiece.getImage().getDrawable();
+
+            if (d == null) {
+                System.out.println("WTF!");
+                System.out.println("====================");
+            }
+            else {
+
+                // transfer image
+                ImageView oldSquare = (ImageView) getBoardSquare()[oldRow][oldCol].getSquare().findViewById(R.id.piece);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
+                params.gravity = Gravity.CENTER;
+                oldSquare.setLayoutParams(params);
+                // needs to be config based on players color
+
+
+                oldSquare.setImageDrawable(activePiece.getImage().getDrawable());
+
+                ImageView newSquare = (ImageView) activePiece.getSquare().getSquare().findViewById(R.id.piece);
+                newSquare.setImageDrawable(null);
+
+                activePiece.disableSquare();
+                activePiece.setSquare(getBoardSquare()[oldRow][oldCol]);
+                activePiece.setImage(oldSquare);
+            }
 			
 			if ( activePiece instanceof King)
 			{
@@ -528,6 +556,13 @@ public class Board
 			System.out.println("Removing " + getPieceList().get(getPieceListCount() - 1).getName() + "\n");
 			getPieceList().remove(getPieceListCount() - 1);
 			setPieceListCount(getPieceListCount() - 1);
+
+            System.out.println("Piece List: ");
+            for( ListFactory print : Board.getPieceList())
+            {
+                System.out.println(print.getName());
+            }
+            System.out.println("====================");
 
 			// reload screen
 //			repaint();
