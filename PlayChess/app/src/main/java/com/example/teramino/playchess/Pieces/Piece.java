@@ -140,7 +140,7 @@ public class Piece {
         // set a destroyed boolean to control a piece taken
 
 
-//        Board.getInstance().setJumped(true);
+        Board.getInstance().setJumped(true);
 
         takenPiece = p;
         takenSquare = p.s;
@@ -312,11 +312,11 @@ public class Piece {
 
         newSquare.setImageDrawable(p.image.getDrawable());
 
-        ImageView oldSquare = (ImageView) p.getSquare().getSquare().findViewById(R.id.piece);
-        oldSquare.setImageDrawable(null);
+            ImageView oldSquare = (ImageView) p.getSquare().getSquare().findViewById(R.id.piece);
+            oldSquare.setImageResource(android.R.color.transparent);
+            p.disableSquare();
+//        }
 
-
-        p.disableSquare();
         // row and column are set by call to setSquare
         p.setSquare(ss);
 

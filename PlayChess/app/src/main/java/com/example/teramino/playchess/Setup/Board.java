@@ -497,24 +497,26 @@ public class Board
             }
             else {
 
-                // transfer image
-                ImageView oldSquare = (ImageView) getBoardSquare()[oldRow][oldCol].getSquare().findViewById(R.id.piece);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
-                params.gravity = Gravity.CENTER;
-                oldSquare.setLayoutParams(params);
-                // needs to be config based on players color
+                activePiece.transferImage(getBoardSquare()[oldRow][oldCol], activePiece, oldCol, oldRow);
 
-
-                oldSquare.setImageDrawable(activePiece.getImage().getDrawable());
-
-                ImageView newSquare = (ImageView) activePiece.getSquare().getSquare().findViewById(R.id.piece);
-                newSquare.setImageDrawable(null);
-
-                activePiece.disableSquare();
-                activePiece.setSquare(getBoardSquare()[oldRow][oldCol]);
-                activePiece.setImage(oldSquare);
+//                // transfer image
+//                ImageView oldSquare = (ImageView) getBoardSquare()[oldRow][oldCol].getSquare().findViewById(R.id.piece);
+//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
+//                params.gravity = Gravity.CENTER;
+//                oldSquare.setLayoutParams(params);
+//                // needs to be config based on players color
+//
+//
+//                oldSquare.setImageDrawable(activePiece.getImage().getDrawable());
+//
+//                ImageView newSquare = (ImageView) activePiece.getSquare().getSquare().findViewById(R.id.piece);
+//                newSquare.setImageDrawable(null);
+//
+//                activePiece.disableSquare();
+//                activePiece.setSquare(getBoardSquare()[oldRow][oldCol]);
+//                activePiece.setImage(oldSquare);
             }
-			
+			// need to fix this
 			if ( activePiece instanceof King)
 			{
 				King k = (King) activePiece;
@@ -534,7 +536,35 @@ public class Board
 			}
 			if(jumped == true)
 			{
-				activePiece.getTakenPiece().setSquare(activePiece.getTakenSquare());
+//                activePiece.transferImage(
+//                        activePiece.getTakenSquare(), activePiece.getTakenPiece(),
+//                        activePiece.getTakenSquare().getCol(), activePiece.getTakenSquare().getRow());
+
+                ImageView resetSquare = (ImageView)  activePiece.getTakenSquare().getSquare().findViewById(R.id.piece);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
+                params.gravity = Gravity.CENTER;
+                resetSquare.setLayoutParams(params);
+                // needs to be config based on players color
+
+                d = activePiece.getTakenPiece().getImage().getDrawable();
+                if (d == null){
+
+                    System.out.println("This is the problem");
+                    System.out.println("====================");
+                }
+
+                resetSquare.setImageDrawable(activePiece.getTakenPiece().getImage().getDrawable());
+
+                // row and column are set by call to setSquare
+                activePiece.getTakenPiece().setSquare(activePiece.getTakenSquare());
+
+                activePiece.setRow(activePiece.getTakenSquare().getRow());
+                activePiece.setCol(activePiece.getTakenSquare().getCol());
+
+                // relink piece image with new square image view
+                activePiece.getTakenPiece().setImage(resetSquare);
+
+//				activePiece.getTakenPiece().setSquare(activePiece.getTakenSquare());
 				activePiece.getTakenPiece().setDestroyed(false);
 
 				System.out.println(activePiece.getTakenPiece().getName() +" visible");
