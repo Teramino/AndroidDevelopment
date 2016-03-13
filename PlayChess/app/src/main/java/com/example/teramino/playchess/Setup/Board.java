@@ -203,7 +203,7 @@ public class Board
 					myPieces[j].setCol(j);
 
 					// set image
-					myPieces[j].setImage(piece);
+					myPieces[j].setImageInteger(j);
 
 				}
 				// myPiece second row
@@ -223,7 +223,7 @@ public class Board
 					myPieces[count].setCol(j);
 
 					// set image
-					myPieces[count].setImage(piece);
+					myPieces[count].setImageInteger(count);
 
 					count++;
 				}
@@ -244,7 +244,7 @@ public class Board
 					oppPieces[count].setCol(j);
 
 					// set image
-					oppPieces[count].setImage(piece);
+					oppPieces[count].setImageInteger(count);
 
 					count++;
 				}
@@ -265,7 +265,7 @@ public class Board
 					oppPieces[j].setCol(j);
 
 					// set image
-					oppPieces[j].setImage(piece);
+					oppPieces[j].setImageInteger(j);
 
 				}
                 squareContainerView.setOnClickListener(new View.OnClickListener() {
@@ -445,6 +445,24 @@ public class Board
 		}// end first for
 	}
 
+	public int imageUpload(Piece p, int pieceImageIndex){
+		if (p.getColor() == "White"){
+
+			return whitePieces[pieceImageIndex];
+		}
+		else if (p.getColor() == "Black"){
+
+			return blackPieces[pieceImageIndex];
+		}
+		else {
+
+			System.out.println("Piece color is jacked!");
+			System.out.println("============");
+			return 0;
+		}
+	}
+
+
 	public Square findSquareClicked(View v){
 
 			Square s = new Square();
@@ -489,13 +507,13 @@ public class Board
 		if (activePiece != null && activePiece.getHasMoved() == true)
 		{
 
-            Drawable d = activePiece.getImage().getDrawable();
-
-            if (d == null) {
-                System.out.println("WTF!");
-                System.out.println("====================");
-            }
-            else {
+//            Drawable d = activePiece.getImageInteger().getDrawable();
+//
+//            if (d == null) {
+//                System.out.println("WTF!");
+//                System.out.println("====================");
+//            }
+//            else {
 
                 activePiece.transferImage(getBoardSquare()[oldRow][oldCol], activePiece, oldCol, oldRow);
 
@@ -507,15 +525,15 @@ public class Board
 //                // needs to be config based on players color
 //
 //
-//                oldSquare.setImageDrawable(activePiece.getImage().getDrawable());
+//                oldSquare.setImageDrawable(activePiece.getImageInteger().getDrawable());
 //
 //                ImageView newSquare = (ImageView) activePiece.getSquare().getSquare().findViewById(R.id.piece);
 //                newSquare.setImageDrawable(null);
 //
 //                activePiece.disableSquare();
 //                activePiece.setSquare(getBoardSquare()[oldRow][oldCol]);
-//                activePiece.setImage(oldSquare);
-            }
+//                activePiece.setImageInteger(oldSquare);
+//            }
 			// need to fix this
 			if ( activePiece instanceof King)
 			{
@@ -546,14 +564,14 @@ public class Board
                 resetSquare.setLayoutParams(params);
                 // needs to be config based on players color
 
-                d = activePiece.getTakenPiece().getImage().getDrawable();
-                if (d == null){
+//                d = activePiece.getTakenPiece().getImageInteger().getDrawable();
+//                if (d == null){
+//
+//                    System.out.println("This is the problem");
+//                    System.out.println("====================");
+//                }
 
-                    System.out.println("This is the problem");
-                    System.out.println("====================");
-                }
-
-                resetSquare.setImageDrawable(activePiece.getTakenPiece().getImage().getDrawable());
+                resetSquare.setImageResource(imageUpload(activePiece.getTakenPiece(),activePiece.getTakenPiece().getImageInteger()));
 
                 // row and column are set by call to setSquare
                 activePiece.getTakenPiece().setSquare(activePiece.getTakenSquare());
@@ -561,8 +579,8 @@ public class Board
                 activePiece.setRow(activePiece.getTakenSquare().getRow());
                 activePiece.setCol(activePiece.getTakenSquare().getCol());
 
-                // relink piece image with new square image view
-                activePiece.getTakenPiece().setImage(resetSquare);
+//                // relink piece image with new square image view
+//                activePiece.getTakenPiece().setImageInteger(resetSquare);
 
 //				activePiece.getTakenPiece().setSquare(activePiece.getTakenSquare());
 				activePiece.getTakenPiece().setDestroyed(false);

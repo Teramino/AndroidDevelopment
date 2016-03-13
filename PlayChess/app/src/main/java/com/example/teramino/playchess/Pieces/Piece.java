@@ -1,6 +1,5 @@
 package com.example.teramino.playchess.Pieces;
 
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,7 +11,7 @@ import com.example.teramino.playchess.Setup.*;
  */
 public class Piece {
 
-    protected ImageView image;
+    protected int imageInteger;
     protected String name;
     protected String color;
     private Piece takenPiece;
@@ -29,16 +28,12 @@ public class Piece {
 
     public Piece() {}
 
-    public Piece(ImageView image) {
-        this.image = image;
+    public int getImageInteger() {
+        return imageInteger;
     }
 
-    public ImageView getImage() {
-        return image;
-    }
-
-    public void setImage(ImageView image) {
-        this.image = image;
+    public void setImageInteger(int image) {
+        this.imageInteger = image;
     }
 
     public String getName() {
@@ -166,13 +161,13 @@ public class Piece {
                 Square ss = p[i].canMove( p[i], s, squareCol, squareRow);
                 if (ss != null )
                 {
-                    Drawable d = p[i].image.getDrawable();
-
-                    if (d == null) {
-                        System.out.println("WTF!");
-                        System.out.println("====================");
-                    }
-                    else {
+//                    Drawable d = p[i].image.getDrawable();
+//
+//                    if (d == null) {
+//                        System.out.println("WTF!");
+//                        System.out.println("====================");
+//                    }
+//                    else {
 
                         transferImage(ss, p[i], ss.getCol(), ss.getRow());
 
@@ -201,10 +196,10 @@ public class Piece {
 //                        p[i].setSquare(ss);
 //
 //                        // relink piece image with new square image view
-//                        p[i].setImage(newSquare);
+//                        p[i].setImageInteger(newSquare);
 
                         this.hasMoved = true;
-                    }
+//                    }
 
                     if (GameManager.getInstance().getKingCheck() == true && p[i].getColor() == "Black" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getOppPieces(),
@@ -301,7 +296,7 @@ public class Piece {
         }
     }
 
-    public void transferImage(Square ss, Piece p, int newSqaureCol, int newSqaureRow ){
+    public void transferImage(Square ss, Piece p, int newSquareCol, int newSquareRow ){
         // transfer image
         ImageView newSquare = (ImageView) ss.getSquare().findViewById(R.id.piece);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110, 110);
@@ -310,7 +305,7 @@ public class Piece {
         // needs to be config based on players color
 
 
-        newSquare.setImageDrawable(p.image.getDrawable());
+        newSquare.setImageResource(Board.getInstance().imageUpload(p,p.getImageInteger()));
 
             ImageView oldSquare = (ImageView) p.getSquare().getSquare().findViewById(R.id.piece);
             oldSquare.setImageResource(android.R.color.transparent);
@@ -320,11 +315,11 @@ public class Piece {
         // row and column are set by call to setSquare
         p.setSquare(ss);
 
-        p.setRow(newSqaureRow);
-        p.setCol(newSqaureCol);
+        p.setRow(newSquareRow);
+        p.setCol(newSquareCol);
 
-        // relink piece image with new square image view
-        p.setImage(newSquare);
+//        // relink piece image with new square image view
+//        p.setImageInteger(newSquare);
     }
 
 }

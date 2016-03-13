@@ -35,24 +35,24 @@ public class Queen extends Piece {
 								for (int x = (pRowLocation - 1); x>=squareRow; x--)
 								{
 									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
-									if(x == squareRow && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareRow && s[x][squareCol].getVaccancy() == false && p.getColor() != s[x][squareCol].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[x][squareCol].getPiece());
+											return s[x][squareCol];
 										}
 										else
-											return s[i][j];
+											return s[x][squareCol];
 									}
 									else if ( s[x][squareCol].getVaccancy() == false )
 									{
 										System.out.println("Blocked\n");
 										return null;
 									}
-									else if (x == squareRow && s[i][j].getVaccancy() == true )
+									else if (x == squareRow && s[x][squareCol].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[x][squareCol];
 									}
 									else if (x == squareRow )
 									{
@@ -70,15 +70,15 @@ public class Queen extends Piece {
 								{
 
 									System.out.println("Processing move[" +x+"][" +z+ "]");
-									if(x == squareRow && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[x][z].getPiece());
+											return s[x][z];
 										}
 										else
-											return s[i][j];
+											return s[x][z];
 									}
 									else if (s[x][z].getVaccancy() == false)
 									{
@@ -87,7 +87,7 @@ public class Queen extends Piece {
 									}
 									if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[x][z];
 									}
 									else if (z == squareCol )
 									{
@@ -111,15 +111,15 @@ public class Queen extends Piece {
 								{
 
 									System.out.println("Processing move[" +x+"][" +z+ "]");
-									if(x == squareRow && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[x][z].getPiece());
+											return s[x][z];
 										}
 										else
-											return s[i][j];
+											return s[x][z];
 									}
 									else if (s[x][z].getVaccancy() == false)
 									{
@@ -128,7 +128,7 @@ public class Queen extends Piece {
 									}
 									else if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[x][z];
 									}
 									else if (z == squareCol )
 									{
@@ -149,24 +149,24 @@ public class Queen extends Piece {
 								for (int x = (pRowLocation + 1); x<=squareRow; x++)
 								{
 									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
-									if(x == squareRow &&  s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareRow &&  s[x][squareCol].getVaccancy() == false && p.getColor() != s[x][squareCol].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[x][squareCol].getPiece());
+											return s[x][squareCol];
 										}
 										else
-											return s[i][j];
+											return s[x][squareCol];
 									}
 									else if ( s[x][squareCol].getVaccancy() == false )
 									{
 										System.out.println("Blocked\n");
 										return null;
 									}
-									else if (x == squareRow && s[i][j].getVaccancy() == true )
+									else if (x == squareRow && s[x][squareCol].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[x][squareCol];
 									}
 									else if (x == squareRow )
 									{
@@ -184,24 +184,24 @@ public class Queen extends Piece {
 								{
 
 									System.out.println("Processing move[" +x+"][" +z+ "]");
-									if(x == squareRow && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[x][z].getPiece());
+											return s[x][z];
 										}
 										else
-											return s[i][j];
+											return s[x][z];
 									}
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("Blocked\n");
 										return null;
 									}
-									else if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
+									else if (x == squareRow && z == squareCol && s[x][z].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[x][z];
 									}
 									else if (z == squareCol )
 									{
@@ -225,24 +225,24 @@ public class Queen extends Piece {
 								{
 
 									System.out.println("Processing move[" +x+"][" +z+ "]");
-									if(x == squareRow && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[x][z].getPiece());
+											return s[x][z];
 										}
 										else
-											return s[i][j];
+											return s[x][z];
 									}
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("Blocked\n");
 										return null;
 									}
-									else if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
+									else if (x == squareRow && z == squareCol && s[x][z].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[x][z];
 									}
 									else if (z == squareCol )
 									{
@@ -263,24 +263,24 @@ public class Queen extends Piece {
 								for (int x = (p.getCol() - 1); x>=squareCol; x--)
 								{
 									System.out.println("Processing move[" +squareRow +"][" +x+ "]");
-									if(x == squareCol && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor())
+									if(x == squareCol && s[squareRow][x].getVaccancy() == false && p.getColor() != s[squareRow][x].getPiece().getColor())
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[squareRow][x].getPiece());
+											return s[squareRow][x];
 										}
 										else
-											return s[i][j];
+											return s[squareRow][x];
 									}
 									else if ( s[squareRow][x].getVaccancy() == false )
 									{
 										System.out.println("Blocked\n");
 										return null;
 									}
-									else if (x == squareCol && s[i][j].getVaccancy() == true )
+									else if (x == squareCol && s[squareRow][x].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[squareRow][x];
 									}
 									else if (x == squareCol )
 									{
@@ -295,24 +295,24 @@ public class Queen extends Piece {
 								for (int x = (p.getCol()+ 1); x<=squareCol; x++)
 								{
 									System.out.println("Processing move[" +squareRow +"][" +x+ "]");
-									if(x == squareCol && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor() )
+									if(x == squareCol && s[squareRow][x].getVaccancy() == false && p.getColor() != s[squareRow][x].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
 										{
-											p.takePiece(s[i][j].getPiece());
-											return s[i][j];
+											p.takePiece(s[squareRow][x].getPiece());
+											return s[squareRow][x];
 										}
 										else
-											return s[i][j];
+											return s[squareRow][x];
 									}
 									else if (s[squareRow][x].getVaccancy() == false)
 									{
 										System.out.println("Blocked\n");
 										return null;
 									}
-									else if (x == squareCol && s[i][j].getVaccancy() == true )
+									else if (x == squareCol && s[squareRow][x].getVaccancy() == true )
 									{
-										return s[i][j];
+										return s[squareRow][x];
 									}
 									else if (x == squareCol )
 									{

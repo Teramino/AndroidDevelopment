@@ -110,7 +110,7 @@ public class GameManager
 		return pawnFirstMove;
 	}
 
-	public boolean isKingChecked(Piece [] p, Piece king,  Square [][] s, int row, int col)
+	public boolean isKingChecked(Piece [] p, Piece king,  Square [][] s, int kingRow, int kingCol)
 	{
 		processingKing = true;
 
@@ -120,14 +120,90 @@ public class GameManager
 			if (p[i].isDestroyed() == false)
 			{
 
-				Square ss = p[i].canMove( p[i], s, col, row);
+				Square ss = p[i].canMove( p[i], s, kingCol, kingRow);
 
 				if(ss != null)
-				{
-					System.out.println(king.getName() +" Check\n");
-					System.out.println(p[i].getName() + " can attack " +king.getName() + "\n");
-					processingKing = false;
-					return true;
+				{ // if code gets in here a piece is potentially can attack King
+					Square blockSquare = null;
+					// relative to the king is there a piece directly in front to block
+					// taking a case by case scenario to validate king is in check
+					// checking to see if king can move in one spot in any directiong
+					// will determing if there is a piece to block the king from being in check
+
+					// same row
+					if (ss.getRow() == kingRow){
+						// check to see if the king is getting checked from the left or right
+						int kingCheckMove;
+						if (ss.getCol() > kingCol)
+							// checks square to the right of king
+							kingCheckMove = kingCol+1;
+						else
+							// checks square to the left of king
+							kingCheckMove = kingCol-1;
+
+						 blockSquare = king.canMove( king, s, kingCheckMove, kingRow);
+					}
+					// same column
+					else if(ss.getCol() == kingCol){
+						// this check can get complicated.
+						// King could be in check in multiple spots
+						// which would require to now allow that spot to be proccessed
+						// maybe using different booleans to confirm a spot is in check for King could work
+						// this chunck of comment actually doesnt apply to this scenario but it doesnt present
+						// an issue that could arise if there wasnt a piece to block for the king
+
+						int kingCheckMove;
+						if (ss.getRow() > kingRow)
+							// checks square to the right of king
+							kingCheckMove = kingRow+1;
+						else
+							// checks square to the left of king
+							kingCheckMove = kingRow-1;
+
+						blockSquare = king.canMove( king, s, kingCol, kingCheckMove);
+
+					}
+					// diag down left
+					else if(ss.getRow() < kingRow && ss.getCol() < kingCol){
+						int kingCheckMoveRow = kingRow - 1;
+						int kingCheckMoveCol = kingCol - 1;
+
+						blockSquare = king.canMove( king, s, kingCheckMoveCol, kingCheckMoveRow);
+
+					}
+					// diag down right
+					else if(ss.getRow() < kingRow && ss.getCol() > kingCol){
+						int kingCheckMoveRow = kingRow - 1;
+						int kingCheckMoveCol = kingCol + 1;
+
+						blockSquare = king.canMove( king, s, kingCheckMoveCol, kingCheckMoveRow);
+
+					}
+					// diag up left
+					else if(ss.getRow() > kingRow && ss.getCol() < kingCol){
+						int kingCheckMoveRow = kingRow + 1;
+						int kingCheckMoveCol = kingCol - 1;
+
+						blockSquare = king.canMove( king, s, kingCheckMoveCol, kingCheckMoveRow);
+
+					}
+					// diag up right
+					else if(ss.getRow() > kingRow && ss.getCol() > kingCol){
+						int kingCheckMoveRow = kingRow + 1;
+						int kingCheckMoveCol = kingCol + 1;
+
+						blockSquare = king.canMove( king, s, kingCheckMoveCol, kingCheckMoveRow);
+
+					}
+					if (blockSquare != null) {
+
+						System.out.println(king.getName() + " Check\n");
+						System.out.println(p[i].getName() + " can attack " + king.getName() + "\n");
+						processingKing = false;
+						return true;
+					}
+					else
+						System.out.println("A piece is blocking check!");
 				}
 				else if (i == p.length - 1)
 				{
