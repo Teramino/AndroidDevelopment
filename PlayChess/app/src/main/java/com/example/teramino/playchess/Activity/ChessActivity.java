@@ -1,4 +1,4 @@
-package com.example.teramino.playchess;
+package com.example.teramino.playchess.Activity;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +11,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.teramino.playchess.Pieces.Piece;
+import com.example.teramino.playchess.R;
 import com.example.teramino.playchess.Setup.Board;
 import com.example.teramino.playchess.Setup.Square;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Map;
+
+public class ChessActivity extends AppCompatActivity {
 
     private TableLayout chessBoard;
     private Square[][] squares;
@@ -23,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final int numCols = 8;
     private final int numRows = 8;
+
+   public Firebase mRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         Board board = Board.getInstance();
         board.getInstance().setupGame(this, chessBoard);
+
+
     }
+
 
 
 //    private void initSquares() {

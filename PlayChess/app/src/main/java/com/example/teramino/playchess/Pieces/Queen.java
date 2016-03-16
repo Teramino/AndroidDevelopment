@@ -6,10 +6,9 @@ import com.example.teramino.playchess.Setup.Square;
 
 public class Queen extends Piece {
 
+	public Queen(String name, String ownership, String color) {
 
-	public Queen(String n, String c) {
-		name = n;
-		color = c;
+		super(name,color,ownership);
 	}
 
 	@Override

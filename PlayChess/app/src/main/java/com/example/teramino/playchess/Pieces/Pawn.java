@@ -7,12 +7,10 @@ import com.example.teramino.playchess.Setup.Square;
 public class Pawn extends Piece
 {	
 	private boolean pawnMoved = false;
-//	private Square initialSquare;
 
-	public Pawn(String n, String c)
-	{
-		name = n;
-		color = c;
+	public Pawn(String name, String ownership, String color) {
+
+		super(name,color,ownership);
 	}
 
 	@Override

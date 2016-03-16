@@ -10,12 +10,9 @@ public class King extends Piece
 {
 	private boolean kingMoved = false;
 
-	//	private Piece rook = null;
+	public King(String name, String ownership, String color) {
 
-	public King(String n, String c) {
-		name = n;
-		color = c;
-
+		super(name,color,ownership);
 	}
 
 	@Override

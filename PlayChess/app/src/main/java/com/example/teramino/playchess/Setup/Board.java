@@ -12,6 +12,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.teramino.playchess.Pieces.*;
+import com.example.teramino.playchess.Player;
 import com.example.teramino.playchess.R;
 
 import java.util.ArrayList;
@@ -60,6 +61,8 @@ public class Board
 	private boolean firstClick = true;
 	private boolean secondClick = false;
 
+	private Player [] players;
+
 	private Integer [] whitePieces = {
 			R.drawable.white_rook, R.drawable.white_knight, R.drawable.white_bishop, R.drawable.white_king,
 			R.drawable.white_queen, R.drawable.white_bishop, R.drawable.white_knight, R.drawable.white_rook,
@@ -100,7 +103,9 @@ public class Board
 		return instance;
 	}
 
-	private Board(){}
+	private Board(){
+
+	}
 
 	public void setupGame(Context context, TableLayout chessBoard){
 		this.context = context;
@@ -116,37 +121,43 @@ public class Board
 		oppPieces = new Piece[16];
 
 		// needs to be config based on players color
-        myPieces[0] = new Rook("MY_Rook1", "White");
-        myPieces[1] = new Knight("MY_Knight1", "White");
-        myPieces[2] = new Bishop("MY_Bishop1", "White");
-        setMyKing(myPieces[3] = new King("MY_King", "White"));
-        myPieces[4] = new Queen("MY_Queen", "White");
-        myPieces[5] = new Bishop("MY_Bishop2", "White");
-        myPieces[6] = new Knight("MY_Knight2", "White");
-        myPieces[7] = new Rook("MY_Rook2", "White");
+        myPieces[0] = new Rook("MY_Rook1", "MY","White");
+        myPieces[1] = new Knight("MY_Knight1", "MY", "White");
+        myPieces[2] = new Bishop("MY_Bishop1", "MY", "White");
+        setMyKing(myPieces[3] = new King("MY_King", "MY", "White"));
+        myPieces[4] = new Queen("MY_Queen", "MY", "White");
+        myPieces[5] = new Bishop("MY_Bishop2", "MY", "White");
+        myPieces[6] = new Knight("MY_Knight2", "MY", "White");
+        myPieces[7] = new Rook("MY_Rook2", "MY", "White");
 
         for (int i=8; i<myPieces.length; i++)
         {
-            myPieces[i] = new Pawn("MY_Pawn" +i, "White");
+            myPieces[i] = new Pawn("MY_Pawn" +i, "MY", "White");
         }
 
 		// needs to be config based on players color
-        oppPieces[0] = new Rook("OPP_Rook1", "Black");
-        oppPieces[1] = new Knight("OPP_Knight1", "Black");
-        oppPieces[2] = new Bishop("OPP_Bishop1", "Black");
-        setOppKing(oppPieces[3] = new King("OPP_King", "Black"));
-        oppPieces[4] = new Queen("OPP_Queen", "Black");
-        oppPieces[5] = new Bishop("OPP_Bishop2", "Black");
-        oppPieces[6] = new Knight("OPP_Knight2", "Black");
-        oppPieces[7] = new Rook("OPP_Rook2", "Black");
+        oppPieces[0] = new Rook("OPP_Rook1", "OPP", "Black");
+        oppPieces[1] = new Knight("OPP_Knight1", "OPP", "Black");
+        oppPieces[2] = new Bishop("OPP_Bishop1", "OPP", "Black");
+        setOppKing(oppPieces[3] = new King("OPP_King", "OPP", "Black"));
+        oppPieces[4] = new Queen("OPP_Queen", "OPP", "Black");
+        oppPieces[5] = new Bishop("OPP_Bishop2", "OPP", "Black");
+        oppPieces[6] = new Knight("OPP_Knight2", "OPP", "Black");
+        oppPieces[7] = new Rook("OPP_Rook2", "OPP", "Black");
 
         for (int i=8; i<getOppPieces().length; i++)
         {
-            oppPieces[i] = new Pawn("OPP_Pawn" +i, "Black");
+            oppPieces[i] = new Pawn("OPP_Pawn" +i, "OPP", "Black");
         }
 	}
 
 	private void setBoard(){
+
+		players = new Player[2];
+
+		players[0] = new Player(myPieces, "Player1");
+		players[1] = new Player(oppPieces, "Player2");
+
 
 		squares = new Square[numRows][numCols];
 
@@ -268,9 +279,19 @@ public class Board
 					oppPieces[j].setImageInteger(j);
 
 				}
+				final ImageView highlight = (ImageView) squareContainerView.findViewById(R.id.highlight);
+
                 squareContainerView.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+
+						// can work
+						// image are drawn over each other in the order made
+						// just need to figure how to reimage the piece image
+//						FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(80,80);
+//						params.gravity= Gravity.CENTER;
+//						highlight.setLayoutParams(params);
+//						highlight.setBackgroundColor(Color.CYAN);
 
 						// find square clicked
 						squareClicked = findSquareClicked(v);
@@ -287,7 +308,6 @@ public class Board
 									activePiece = null;
 									return;
 								}
-								// active piece
 								else {
 									if (activePiece == null) // (once activePiece is initialized this block of code is jumped)
 									{
@@ -388,10 +408,10 @@ public class Board
 								}
 
 								if (activePiece != null) {
-                                    System.out.print("OPP_");
-									GameManager.getInstance().setKingCheck(
-											GameManager.getInstance().isKingChecked(getMyPieces(),
-													oppKing, getSquares(), oppKing.getRow(), oppKing.getCol()));
+//                                    System.out.print("OPP_");
+//									GameManager.getInstance().setKingCheck(
+//											GameManager.getInstance().isKingChecked(getMyPieces(),
+//													oppKing, getSquares(), oppKing.getRow(), oppKing.getCol()));
 
 									// redraw the image
 //								repaint();

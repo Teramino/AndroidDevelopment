@@ -6,6 +6,11 @@ import android.widget.ImageView;
 
 import com.example.teramino.playchess.R;
 import com.example.teramino.playchess.Setup.*;
+import com.firebase.client.Firebase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by teramino on 3/8/16.
  */
@@ -24,9 +29,26 @@ public class Piece {
     protected int numCols = 8;
     protected int row;
     protected int col;
+    protected String whosePiece;
 
 
     public Piece() {}
+
+    public Piece(String name, String color, String ownership) {
+
+        this.name = name;
+        this.color = color;
+        this.whosePiece = ownership;
+    }
+
+    public String getWhosePiece() {
+        return whosePiece;
+    }
+
+
+    public void setWhosePiece(String whosePiece) {
+        this.whosePiece = whosePiece;
+    }
 
     public int getImageInteger() {
         return imageInteger;
@@ -201,7 +223,8 @@ public class Piece {
                         this.hasMoved = true;
 //                    }
 
-                    if (GameManager.getInstance().getKingCheck() == true && p[i].getColor() == "Black" && GameManager.getInstance().isKingChecked(
+                    // use this to for multiple checks on MY
+                    if (GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "OPP" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getOppPieces(),
                             Board.getInstance().getMyKing(),
                             Board.getInstance().getSquares(),
@@ -209,58 +232,74 @@ public class Piece {
                             Board.getInstance().getMyKing().getCol()) == true )
                     {
                         System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " still in check");
-                        System.out.println("====================");
+                        System.out.println("=========MY===========");
 
                         Board.getInstance().cancelMove();
 
                         return;
                     }
 
-                    else if(GameManager.getInstance().getKingCheck() == true && p[i].getColor() == "White" && GameManager.getInstance().isKingChecked(
+                    // use this to for multiple checks on OPP
+                    else if(GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getMyPieces(),
                             Board.getInstance().getOppKing(),
                             Board.getInstance().getSquares(),
                             Board.getInstance().getOppKing().getRow(),
                             Board.getInstance().getOppKing().getCol()))
                     {
-                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " still in check");
-                        System.out.println("====================");
+//                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " still in check");
+//                        System.out.println("=========OPP===========");
 
-                        Board.getInstance().cancelMove();
+//                        Board.getInstance().cancelMove();
 
                         return;
                     }
-                    else if (p[i].getColor() == "Black" &&  GameManager.getInstance().isKingChecked(
+                    // checks to see if OPP move puts me king in check
+                    else if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingChecked(
                             Board.getInstance().getOppPieces(),
                             Board.getInstance().getMyKing(),
                             Board.getInstance().getSquares(),
                             Board.getInstance().getMyKing().getRow(),
                             Board.getInstance().getMyKing().getCol()) == true )
                     {
-                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
-                        System.out.println("====================");
-
-                        Board.getInstance().cancelMove();
+//                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+                        System.out.println("==========OPP==========");
+//
+//                        Board.getInstance().cancelMove();
 
                         return;
                     }
 
-                    else if(p[i].getColor() == "White" && GameManager.getInstance().isKingChecked(
+                    // checks to see if move puts king in check
+                    else if(p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getMyPieces(),
                             Board.getInstance().getOppKing(),
                             Board.getInstance().getSquares(),
                             Board.getInstance().getOppKing().getRow(),
                             Board.getInstance().getOppKing().getCol()))
                     {
-                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " can be attacked");
-                        System.out.println("====================");
+//                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " can be attacked");
 
-                        Board.getInstance().cancelMove();
+//
+//                        Board.getInstance().cancelMove();
 
                         return;
                     }
                     else
                     {
+                        // Post move to cloud
+
+//                        Firebase mRef = new Firebase("https://playchess.firebaseio.com");
+//
+//                        Firebase chessMove = mRef.child("chess/moves");
+//
+//                        Double col =
+//
+//                        Map<Double, Double> nickname = new HashMap<Double, Double>();
+//                        nickname.put(p[i].getCol(), p[i].getRow());
+//                        chessMove.updateChildren(nickname);
+
+
 
 
                         // displays confirm move to textArea after each move until confirmed or canceled

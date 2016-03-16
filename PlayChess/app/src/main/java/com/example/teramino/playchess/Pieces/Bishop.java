@@ -6,12 +6,11 @@ import com.example.teramino.playchess.Setup.Square;
 public class Bishop extends Piece
 {
 
-	public Bishop(String n, String c)
-	{
-		name = n;
-		color = c;
+	public Bishop(String name, String ownership, String color) {
 
+		super(name,color,ownership);
 	}
+
     @Override
 	public Square canMove( Piece p, Square [][] s, int squareCol, int squareRow) {
 

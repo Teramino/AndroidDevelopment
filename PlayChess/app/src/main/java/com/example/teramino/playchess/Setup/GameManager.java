@@ -1,6 +1,7 @@
 package com.example.teramino.playchess.Setup;
 
 import com.example.teramino.playchess.Pieces.*;
+import com.example.teramino.playchess.Player;
 
 public class GameManager
 {
@@ -131,7 +132,7 @@ public class GameManager
 					// will determing if there is a piece to block the king from being in check
 
 					// same row
-					if (ss.getRow() == kingRow){
+					if (p[i].getRow() == kingRow){
 						// check to see if the king is getting checked from the left or right
 						int kingCheckMove;
 						if (ss.getCol() > kingCol)
@@ -144,7 +145,7 @@ public class GameManager
 						 blockSquare = king.canMove( king, s, kingCheckMove, kingRow);
 					}
 					// same column
-					else if(ss.getCol() == kingCol){
+					else if(p[i].getCol() == kingCol){
 						// this check can get complicated.
 						// King could be in check in multiple spots
 						// which would require to now allow that spot to be proccessed
@@ -153,7 +154,7 @@ public class GameManager
 						// an issue that could arise if there wasnt a piece to block for the king
 
 						int kingCheckMove;
-						if (ss.getRow() > kingRow)
+						if (p[i].getRow() > kingRow)
 							// checks square to the right of king
 							kingCheckMove = kingRow+1;
 						else
@@ -164,7 +165,7 @@ public class GameManager
 
 					}
 					// diag down left
-					else if(ss.getRow() < kingRow && ss.getCol() < kingCol){
+					else if(p[i].getRow() < kingRow && p[i].getCol() < kingCol){
 						int kingCheckMoveRow = kingRow - 1;
 						int kingCheckMoveCol = kingCol - 1;
 
@@ -172,7 +173,7 @@ public class GameManager
 
 					}
 					// diag down right
-					else if(ss.getRow() < kingRow && ss.getCol() > kingCol){
+					else if(p[i].getRow() < kingRow && p[i].getCol() > kingCol){
 						int kingCheckMoveRow = kingRow - 1;
 						int kingCheckMoveCol = kingCol + 1;
 
@@ -180,7 +181,7 @@ public class GameManager
 
 					}
 					// diag up left
-					else if(ss.getRow() > kingRow && ss.getCol() < kingCol){
+					else if(p[i].getRow() > kingRow && p[i].getCol() < kingCol){
 						int kingCheckMoveRow = kingRow + 1;
 						int kingCheckMoveCol = kingCol - 1;
 
@@ -188,14 +189,24 @@ public class GameManager
 
 					}
 					// diag up right
-					else if(ss.getRow() > kingRow && ss.getCol() > kingCol){
+					else if(p[i].getRow() > kingRow && p[i].getCol() > kingCol){
 						int kingCheckMoveRow = kingRow + 1;
 						int kingCheckMoveCol = kingCol + 1;
 
 						blockSquare = king.canMove( king, s, kingCheckMoveCol, kingCheckMoveRow);
 
 					}
-					if (blockSquare != null) {
+					// if the peice is mine dont flag a check
+					if (blockSquare != null && p[i].getWhosePiece() == "MY") {
+
+						System.out.println(king.getName() + " Check\n");
+						System.out.println(p[i].getName() + " can attack " + king.getName() + "\n");
+						System.out.println("==========MY==========");
+						processingKing = false;
+						return false;
+					}
+					// if the peice is mine dont flag a check
+					else if (blockSquare != null && p[i].getWhosePiece() == "OPP") {
 
 						System.out.println(king.getName() + " Check\n");
 						System.out.println(p[i].getName() + " can attack " + king.getName() + "\n");
@@ -215,6 +226,7 @@ public class GameManager
 
 			}
 		}
+		System.out.println("====================");
 		return false;
 	}
 

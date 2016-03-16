@@ -6,10 +6,9 @@ import com.example.teramino.playchess.Setup.Square;
 public class Rook extends Piece {
 	private boolean rookMoved = false;
 
-	public Rook(String n, String c) {
+	public Rook(String name, String ownership, String color) {
 
-		name = n;
-		color = c;
+		super(name,color,ownership);
 	}
 
 	@Override
