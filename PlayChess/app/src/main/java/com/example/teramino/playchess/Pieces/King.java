@@ -9,6 +9,14 @@ import com.example.teramino.playchess.Setup.Square;
 public class King extends Piece
 {
 	private boolean kingMoved = false;
+	private boolean upCheck = false;
+	private boolean upLeftCheck = false;
+	private boolean upRightCheck = false;
+	private boolean downCheck = false;
+	private boolean downLeftCheck = false;
+	private boolean downRightCheck = false;
+	private boolean leftCheck = false;
+	private boolean rightCheck = false;
 
 	public King(String name, String ownership, String color) {
 
@@ -341,7 +349,7 @@ public class King extends Piece
 					Board.getInstance().setActivePiece(null);
 					return;
 				}
-				else if (i == p.length - 1) // once the loop has done it's last check the condition will be true
+				else if (i == p.length - 1) // if true King's move doesnt put in check
 				{
 					Board.getInstance().getActivePiece().setSquare(temp);
 
@@ -372,7 +380,7 @@ public class King extends Piece
 								GameManager.getInstance().setRook(rook);
 
 
-								rook.transferImage(s[squareRow][squareCol+1], king, (squareCol+1), squareRow);
+								rook.transferImage(s[squareRow][squareCol+1], rook, (squareCol+1), squareRow);
 //								rook.setFrame(king.getX()+size, squareRow *size, rook.getWidth(), rook.getWidth());
 //								rook.disableSquare();
 //								rook.setSquare(boardSquare[rook.getRow()][rook.getCol()]);
@@ -386,7 +394,7 @@ public class King extends Piece
 
 
 							}
-							else if (rook != null && king.getCol() + 4== rook.getCol() )
+							else if (rook != null && king.getCol() + 4 == rook.getCol() )
 							{
 								king.transferImage(s[squareRow][squareCol], king, squareCol, squareRow);
 //								king.setFrame(boardPieceX+2*size, squareRow *size, width, height);
@@ -395,7 +403,7 @@ public class King extends Piece
 								GameManager.getInstance().setRook(rook);
 
 
-								rook.transferImage(s[squareRow][squareCol + 1], king, (squareCol - 1), squareRow);
+								rook.transferImage(s[squareRow][squareCol-1], rook, (squareCol-1), squareRow);
 //								rook.setFrame(king.getX()-size, squareRow *size, rook.getWidth(), rook.getWidth());
 //								rook.disableSquare();
 //								rook.setSquare(boardSquare[(int) rook.getX() / size][(int) rook.getY() / size]);
@@ -475,11 +483,69 @@ public class King extends Piece
 		}
 	}
 
+	public boolean isUpCheck() {
+		return upCheck;
+	}
 
-//	public boolean isKingMoved() {
-//		return kingMoved;
-//	}
+	public void setUpCheck(boolean upCheck) {
+		this.upCheck = upCheck;
+	}
 
+	public boolean isUpLeftCheck() {
+		return upLeftCheck;
+	}
+
+	public void setUpLeftCheck(boolean upLeftCheck) {
+		this.upLeftCheck = upLeftCheck;
+	}
+
+	public boolean isUpRightCheck() {
+		return upRightCheck;
+	}
+
+	public void setUpRightCheck(boolean upRightCheck) {
+		this.upRightCheck = upRightCheck;
+	}
+
+	public boolean isDownCheck() {
+		return downCheck;
+	}
+
+	public void setDownCheck(boolean downCheck) {
+		this.downCheck = downCheck;
+	}
+
+	public boolean isDownLeftCheck() {
+		return downLeftCheck;
+	}
+
+	public void setDownLeftCheck(boolean downLeftCheck) {
+		this.downLeftCheck = downLeftCheck;
+	}
+
+	public boolean isDownRightCheck() {
+		return downRightCheck;
+	}
+
+	public void setDownRightCheck(boolean downRightCheck) {
+		this.downRightCheck = downRightCheck;
+	}
+
+	public boolean isLeftCheck() {
+		return leftCheck;
+	}
+
+	public void setLeftCheck(boolean leftCheck) {
+		this.leftCheck = leftCheck;
+	}
+
+	public boolean isRightCheck() {
+		return rightCheck;
+	}
+
+	public void setRightCheck(boolean rightCheck) {
+		this.rightCheck = rightCheck;
+	}
 
 	public void setKingMoved(boolean kingMoved) {
 		this.kingMoved = kingMoved;

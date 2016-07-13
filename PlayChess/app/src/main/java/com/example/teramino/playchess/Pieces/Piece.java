@@ -6,10 +6,6 @@ import android.widget.ImageView;
 
 import com.example.teramino.playchess.R;
 import com.example.teramino.playchess.Setup.*;
-import com.firebase.client.Firebase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by teramino on 3/8/16.
@@ -172,7 +168,7 @@ public class Piece {
     {
         return null;
     }
-    
+
     public void doMove(Piece [] p, Square [][] s, int squareCol, int squareRow) {
 
 
@@ -191,7 +187,7 @@ public class Piece {
 //                    }
 //                    else {
 
-                        transferImage(ss, p[i], ss.getCol(), ss.getRow());
+                    transferImage(ss, p[i], ss.getCol(), ss.getRow());
 
 //                        // transfer image
 //                        ImageView newSquare = (ImageView) ss.getSquare().findViewById(R.id.piece);
@@ -220,11 +216,11 @@ public class Piece {
 //                        // relink piece image with new square image view
 //                        p[i].setImageInteger(newSquare);
 
-                        this.hasMoved = true;
+                    this.hasMoved = true;
 //                    }
 
-                    // use this to for multiple checks on MY
-                    if (GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "OPP" && GameManager.getInstance().isKingChecked(
+////                     can use this to for multiple checks on MY
+                    if (GameManager.getInstance().OPPChecked == true && p[i].getWhosePiece() == "OPP" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getOppPieces(),
                             Board.getInstance().getMyKing(),
                             Board.getInstance().getSquares(),
@@ -236,41 +232,76 @@ public class Piece {
 
                         Board.getInstance().cancelMove();
 
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
                         return;
                     }
+                    else
+                    GameManager.getInstance().OPPChecked = false;
+////                    // can use this to for multiple checks on OPP
+//                    // if in check and move doesnt block check its cancelled
+//                   else
+                    if(GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
+                            Board.getInstance().getOppPieces(),
+                            Board.getInstance().getMyKing(),
+                            Board.getInstance().getSquares(),
+                            Board.getInstance().getMyKing().getRow(),
+                            Board.getInstance().getMyKing().getCol()))
+                    {
+                        System.out.println("Can't move " + p[i].getName() + "... " + Board.getInstance().getMyKing().getName() + " still in check");
+                        System.out.println("=========MY===========");
 
-                    // use this to for multiple checks on OPP
-                    else if(GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
+                        Board.getInstance().cancelMove();
+
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
+                        return;
+                    }
+                    else
+                        GameManager.getInstance().setKingCheck(false);
+
+                    // checks to see if OPP move puts me king in check
+                    if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingChecked(
+                            Board.getInstance().getOppPieces(),
+                            Board.getInstance().getMyKing(),
+                            Board.getInstance().getSquares(),
+                            Board.getInstance().getMyKing().getRow(),
+                            Board.getInstance().getMyKing().getCol()))
+                    {
+//                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+                        GameManager.getInstance().setKingCheck(true);
+                        System.out.println("==========OPP==========");
+//
+//                        Board.getInstance().cancelMove();
+
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
+                        return;
+                    }
+                    // checks to see if OPP move puts own king in check
+                    else if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingChecked(
                             Board.getInstance().getMyPieces(),
                             Board.getInstance().getOppKing(),
                             Board.getInstance().getSquares(),
                             Board.getInstance().getOppKing().getRow(),
                             Board.getInstance().getOppKing().getCol()))
                     {
-//                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " still in check");
-//                        System.out.println("=========OPP===========");
-
-//                        Board.getInstance().cancelMove();
-
-                        return;
-                    }
-                    // checks to see if OPP move puts me king in check
-                    else if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getOppPieces(),
-                            Board.getInstance().getMyKing(),
-                            Board.getInstance().getSquares(),
-                            Board.getInstance().getMyKing().getRow(),
-                            Board.getInstance().getMyKing().getCol()) == true )
-                    {
-//                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+//                            GameManager.getInstance().setKingCheck(true);
                         System.out.println("==========OPP==========");
 //
-//                        Board.getInstance().cancelMove();
+                        Board.getInstance().cancelMove();
 
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
                         return;
                     }
 
-                    // checks to see if move puts king in check
+                    // checks to see if move puts OPP king in check
                     else if(p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
                             Board.getInstance().getMyPieces(),
                             Board.getInstance().getOppKing(),
@@ -278,11 +309,39 @@ public class Piece {
                             Board.getInstance().getOppKing().getRow(),
                             Board.getInstance().getOppKing().getCol()))
                     {
+//                        // check for win
+//                        GameManager.getInstance().setMate(GameManager.getInstance().isMated(
+//                                Board.getInstance().getOppPieces(),
+//                                (King) Board.getInstance().getOppKing(),
+//                                s,
+//                                Board.getInstance().getOppKing().getCol(),
+//                                Board.getInstance().getOppKing().getRow(),
+//                                ss.getCol(),
+//                                ss.getRow()));
+
+                        GameManager.getInstance().OPPChecked = true;
+
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
+                        return;
+                    }
+                    // checks to see if move puts own king in check
+                    else if(p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
+                            Board.getInstance().getOppPieces(),
+                            Board.getInstance().getMyKing(),
+                            Board.getInstance().getSquares(),
+                            Board.getInstance().getMyKing().getRow(),
+                            Board.getInstance().getMyKing().getCol()))
+                    {
 //                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " can be attacked");
 
 //
 //                        Board.getInstance().cancelMove();
 
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
                         return;
                     }
                     else
@@ -306,6 +365,9 @@ public class Piece {
 //                        Board.getInstance().setDisplayConfirm (true);
 //                        Options.getInstance().displayConfirmMessage();
 
+                        System.out.println("====================");
+                        System.out.println(" ");
+                        System.out.println(" ");
                         return;
                     }
                 }
@@ -323,11 +385,16 @@ public class Piece {
                     {
                         System.out.println(print.getName());
                     }
+
                     System.out.println("====================");
 
                     p[i].setInActive();
 
                     Board.getInstance().setActivePiece(null);
+
+                    System.out.println("====================");
+                    System.out.println(" ");
+                    System.out.println(" ");
                     return;
                 }
 
@@ -346,9 +413,9 @@ public class Piece {
 
         newSquare.setImageResource(Board.getInstance().imageUpload(p,p.getImageInteger()));
 
-            ImageView oldSquare = (ImageView) p.getSquare().getSquare().findViewById(R.id.piece);
-            oldSquare.setImageResource(android.R.color.transparent);
-            p.disableSquare();
+        ImageView oldSquare = (ImageView) p.getSquare().getSquare().findViewById(R.id.piece);
+        oldSquare.setImageResource(android.R.color.transparent);
+        p.disableSquare();
 //        }
 
         // row and column are set by call to setSquare

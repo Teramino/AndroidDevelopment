@@ -61,4 +61,12 @@
         android:layout_alignRight="@+id/emailText"
         android:layout_alignEnd="@+id/emailText" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_above="@+id/emailText"
+        android:layout_toRightOf="@+id/passwordTextView"
+        android:layout_toEndOf="@+id/passwordTextView" />
+
 </RelativeLayout>

@@ -2,7 +2,6 @@ package com.example.teramino.playchess.Setup;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,18 +35,17 @@ public class Board
 	private Piece[] oppPieces;
 	private Piece activePiece = null;
 	private Square[][] squares;
-	Square squareCheck;
 	private static Board instance;
 	int numRows = 8; 
 	int numCols = 8;
 	int col = 0, row = 0;
-	int size = 50; 
 	private int pieceListCount = 0;
 	double loaderX;
 	double loaderY;
-	double pYLocation;
 	int oldRow;
 	int oldCol;
+	int oldRow2;
+	int oldCol2;
 	private boolean displayConfirm = false;
 	boolean yourTurn = false;
 	boolean moveCheck = false;
@@ -55,11 +53,8 @@ public class Board
 	String loaderName;
 	private Piece myKing;
 	private Piece oppKing;
-	private int player = 1;
-	private int clicks = 0;
 	private Square squareClicked;
-	private boolean firstClick = true;
-	private boolean secondClick = false;
+	private final int numPieces = 16;
 
 	private Player [] players;
 
@@ -117,8 +112,8 @@ public class Board
 
 	private void setPieces(){
 
-		myPieces = new Piece[16];
-		oppPieces = new Piece[16];
+		myPieces = new Piece[numPieces];
+		oppPieces = new Piece[numPieces];
 
 		// needs to be config based on players color
         myPieces[0] = new Rook("MY_Rook1", "MY","White");
@@ -197,7 +192,7 @@ public class Board
 						squareView.setBackgroundColor(Color.WHITE);
 				}
 
-				//myPiece first row
+//myPiece first row
 				if (i == 7)
 				{
 					getMyPieces()[j].setSquare(getSquares()[i][j]);
@@ -281,6 +276,7 @@ public class Board
 				}
 				final ImageView highlight = (ImageView) squareContainerView.findViewById(R.id.highlight);
 
+// ================ Clicked =======================================
                 squareContainerView.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -307,8 +303,7 @@ public class Board
 									System.out.println("====================");
 									activePiece = null;
 									return;
-								}
-								else {
+								} else {
 									if (activePiece == null) // (once activePiece is initialized this block of code is jumped)
 									{
 										// checks that it is this players turn and that moveConfirm has been clicked
@@ -319,6 +314,7 @@ public class Board
 											myPieces[i].setActive();
 
 											// print out name | use this to set piece name and original piece location
+											System.out.println("====================");
 											System.out.println(myPieces[i].getName());
 											// positions printing our wrong
 											System.out.println("Row: " + myPieces[i].getRow() + " Col: " + myPieces[i].getCol() + "\n");
@@ -344,8 +340,56 @@ public class Board
 											System.out.println("====================");
 										}
 									}// end if(once activePiece is initialized this block of code is jumped)
-								}// end else if
+								}// end else
 							} // end if
+							else if (oppPieces[i].getRow() == squareClicked.getRow() && oppPieces[i].getCol() == squareClicked.getCol() && oppPieces[i].isDestroyed() == false) {
+
+								// deactivate piece if already activated
+								if (oppPieces[i].isActive()) {
+									oppPieces[i].setInActive();
+									System.out.println("Deactivate\n");
+									System.out.println("====================");
+									activePiece = null;
+									return;
+								} else {
+									if (activePiece == null) // (once activePiece is initialized this block of code is jumped)
+									{
+										// checks that it is this players turn and that moveConfirm has been clicked
+//										if (GameManager.getInstance().getPlayerTurn() == true
+//												&& GameManager.getInstance().getMoveConfirm() == true) {
+
+										if (oppPieces[i].isActive() == false) {
+											oppPieces[i].setActive();
+
+											// print out name | use this to set piece name and original piece location
+											System.out.println("====================");
+											System.out.println(oppPieces[i].getName());
+											// positions printing our wrong
+											System.out.println("Row: " + oppPieces[i].getRow() + " Col: " + oppPieces[i].getCol() + "\n");
+
+											//save the piece and x,y for cancelMove()
+											oldRow2 = oppPieces[i].getRow();
+											oldCol2 = oppPieces[i].getCol();
+											activePiece = oppPieces[i];
+
+											return;
+										}// end if
+
+//										} // end if(player move check)
+
+										else if (GameManager.getInstance().getMoveConfirm() == false) {
+											System.out.println("Move not confirmed\n");
+											return;
+										} else {
+											System.out.println("Clicked " + oppPieces[i].getName());
+											System.out.println("OPP turn to move");
+											System.out.println("Confirm: " + GameManager.getInstance().getMoveConfirm());
+											System.out.println("Turn: " + GameManager.getInstance().getPlayerTurn() + "\n");
+											System.out.println("====================");
+										}
+									}// end if(once activePiece is initialized this block of code is jumped)
+								}// end else if
+							}
 
 						} // end for
 
@@ -362,7 +406,7 @@ public class Board
 									break;
 								}
 
-                                // I dont think this block is needed
+								// I dont think this block is needed
 //								// if there is a click off the board
 //								else if (i == getBoardSquare().length - 1 && j == getBoardSquare()[i].length - 1) {
 //
@@ -379,16 +423,17 @@ public class Board
 						}
 
 						// valid click
-						for (int x = 0; x < myPieces.length; x++) {
+						for (int x = 0; x < numPieces; x++) {
 							if (myPieces[x].isActive() || oppPieces[x].isActive()) {
 
 								col = squareClicked.getCol();
 								row = squareClicked.getRow();
 
 
-								System.out.println(activePiece.getClass());
+//								System.out.println(activePiece.getClass());
 
 								// send moves to array list from here
+// Print Move
 								System.out.println("To space");
 								System.out.println("Row: " + row + " Col: " + col + "\n");
 								System.out.println("====================");
@@ -396,15 +441,29 @@ public class Board
 								loaderName = activePiece.getName();
 								loaderX = col;
 								loaderY = row;
-								Loader();
+// Print Move List
+//								MoveList();
 
-								if (activePiece.getClass().toString().equalsIgnoreCase("class com.example.teramino.playchess.Pieces.King")) {
+								if (activePiece.getWhosePiece() == "MY") {
 
-									activePiece.doMove(oppPieces, getBoardSquare(), col, row);
+									if (activePiece.getClass().toString().equalsIgnoreCase("class com.example.teramino.playchess.Pieces.King")) {
 
-								} else if (myPieces[x].isActive()) {
+										activePiece.doMove(oppPieces, getBoardSquare(), col, row);
 
-									activePiece.doMove(myPieces, getBoardSquare(), col, row);
+									} else if (myPieces[x].isActive()) {
+
+										activePiece.doMove(myPieces, getBoardSquare(), col, row);
+									}
+								} else if (activePiece.getWhosePiece() == "OPP") {
+
+									if (activePiece.getClass().toString().equalsIgnoreCase("class com.example.teramino.playchess.Pieces.King")) {
+
+										activePiece.doMove(myPieces, getBoardSquare(), col, row);
+
+									} else if (oppPieces[x].isActive()) {
+
+										activePiece.doMove(oppPieces, getBoardSquare(), col, row);
+									}
 								}
 
 								if (activePiece != null) {
@@ -419,18 +478,15 @@ public class Board
 									// this code was used in move confirmed
 
 									// once these pieces have moved their special move can't happen anymore
-									if (Board.getInstance().getActivePiece() instanceof Pawn)
-									{
+									if (Board.getInstance().getActivePiece() instanceof Pawn) {
 										Pawn pawn = (Pawn) Board.getInstance().getActivePiece();
 										GameManager.getInstance().setPawnMoved(true, pawn);
 									}
-									if (Board.getInstance().getActivePiece() instanceof Rook)
-									{
+									if (Board.getInstance().getActivePiece() instanceof Rook) {
 										Rook rook = (Rook) Board.getInstance().getActivePiece();
 										GameManager.getInstance().setRookMoved(true, rook);
 									}
-									if (Board.getInstance().getActivePiece() instanceof King)
-									{
+									if (Board.getInstance().getActivePiece() instanceof King) {
 										King king = (King) Board.getInstance().getActivePiece();
 										GameManager.getInstance().setKingMoved(true, king);
 									}
@@ -441,6 +497,29 @@ public class Board
 									Board.getInstance().setActivePiece(null);
 									Board.getInstance().setJumped(false);
 								}
+
+//								View view = layoutInflater.inflate(R.layout.chess_board, null);
+//								TextView textView = (TextView) view.findViewById(R.id.checkField);
+//
+//								if (GameManager.getInstance().OPPChecked == true) {
+//									System.out.println("OPP are we here?");
+//									textView.setText("OPP Check");
+//								}
+//								else{
+//									System.out.println(" OPP are we here? else ");
+//									textView.setText("");
+//								}
+//
+//								if (GameManager.getInstance().getKingCheck() == true) {
+//									System.out.println("OPP are we here?");
+//									textView.setText("I'm Check");
+//								}
+//								else{
+//									System.out.println("are we here? else ");
+//									textView.setText("");
+//								}
+
+
 								return;
 							}// end if
 
@@ -456,6 +535,7 @@ public class Board
 				squares[i][j].setCol(j);
 
 				tr.addView(squareContainerView);
+
 
 
 			}// end second for
@@ -503,25 +583,25 @@ public class Board
 			return s;
 	}
 
-	// Loader for Moves List
-	public void Loader() {
-		ListFactory p = null;
-
-		p = new ListFactory(null, 0, 0);
-		p.setName(loaderName);
-		p.setRow(loaderY);
-		p.setCol(loaderX);
-
-		getPieceList().add(p);
-		setPieceListCount(getPieceListCount() + 1);
-
-		System.out.println("Piece List: ");
-		for( ListFactory print : Board.getPieceList())
-		{
-			System.out.println(print.getName());
-		}
-		System.out.println("====================");
-	}
+//=============== List of Moves ===================
+//	public void MoveList() {
+//		ListFactory p = null;
+//
+//		p = new ListFactory(null, 0, 0);
+//		p.setName(loaderName);
+//		p.setRow(loaderY);
+//		p.setCol(loaderX);
+//
+//		getPieceList().add(p);
+//		setPieceListCount(getPieceListCount() + 1);
+//
+//		System.out.println("Move List: ");
+//		for( ListFactory print : Board.getPieceList())
+//		{
+//			System.out.println(print.getName());
+//		}
+//		System.out.println("====================");
+//	}
 
 	public void cancelMove() {
 		if (activePiece != null && activePiece.getHasMoved() == true)
@@ -534,8 +614,11 @@ public class Board
 //                System.out.println("====================");
 //            }
 //            else {
-
+			if (activePiece.getWhosePiece() == "MY")
                 activePiece.transferImage(getBoardSquare()[oldRow][oldCol], activePiece, oldCol, oldRow);
+			else if(activePiece.getWhosePiece() == "OPP")
+				activePiece.transferImage(getBoardSquare()[oldRow2][oldCol2], activePiece, oldCol2, oldRow2);
+
 
 //                // transfer image
 //                ImageView oldSquare = (ImageView) getBoardSquare()[oldRow][oldCol].getSquare().findViewById(R.id.piece);
@@ -568,8 +651,6 @@ public class Board
 
 					rook.disableSquare();
 					rook.setSquare(squares[rookOldCol][rookOldRow]);
-
-					GameManager.getInstance().setCastling(false);
 				}
 			}
 			if(jumped == true)
@@ -608,14 +689,35 @@ public class Board
 				System.out.println(activePiece.getTakenPiece().getName() +" visible");
 				jumped = false;
 			}
-			if (GameManager.getInstance().getKingCheck() )
-			{
-				GameManager.getInstance().setKingCheck(false);
-				if (activePiece.getColor() == "Black")
+			if (activePiece.getWhosePiece() == "MY"){
+
+				GameManager.getInstance().setKingCheck(GameManager.getInstance().isKingChecked(
+						Board.getInstance().getOppPieces(),
+						Board.getInstance().getMyKing(),
+						Board.getInstance().getSquares(),
+						Board.getInstance().getMyKing().getRow(),
+						Board.getInstance().getMyKing().getCol()));
+				if (!GameManager.getInstance().getKingCheck())
+					System.out.println(myKing.getName() +" Not Checked\n" +GameManager.getInstance().getKingCheck());
+				else
+					System.out.println(myKing.getName() +" Still Checked\n" +GameManager.getInstance().getKingCheck());
+
+			}
+			else if(activePiece.getWhosePiece() == "OPP"){
+
+				GameManager.getInstance().setKingCheck(GameManager.getInstance().isKingChecked(
+						Board.getInstance().getOppPieces(),
+						Board.getInstance().getMyKing(),
+						Board.getInstance().getSquares(),
+						Board.getInstance().getMyKing().getRow(),
+						Board.getInstance().getMyKing().getCol()));
+				if (!GameManager.getInstance().getKingCheck())
 					System.out.println(oppKing.getName() +" Not Checked\n" +GameManager.getInstance().getKingCheck() );
 				else
-					System.out.println(myKing.getName() +" Not Checked\n" +GameManager.getInstance().getKingCheck() );
+					System.out.println(oppKing.getName() +" Still Checked\n" +GameManager.getInstance().getKingCheck() );
+
 			}
+
 			activePiece.setHasMoved(false);
 			activePiece.setInActive();
 			activePiece = null;

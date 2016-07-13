@@ -39,20 +39,25 @@ public class Rook extends Piece {
 									if (GameManager.getInstance().isProcessingKing() == false)
 									{
 										p.takePiece(s[x][squareCol].getPiece());
+										System.out.println("=====================");
 
 										return s[x][squareCol];
 									}
-									else
+									else{
+										System.out.println("=====================");
 										return s[x][squareCol];
+									}
 								}
 								else if (s[x][squareCol].getVaccancy() == false)
 								{
 									System.out.println("Blocked\n");
+									System.out.println("=====================");
 									return null;
 								}
 								else if (x == squareRow && s[x][squareCol].getRow() == squareRow && s[x][squareCol].getVaccancy() == true )
 								{
 
+									System.out.println("=====================");
 									return s[x][squareCol];
 								}
 							} // end for
@@ -68,20 +73,24 @@ public class Rook extends Piece {
 									if (GameManager.getInstance().isProcessingKing() == false)
 									{
 										p.takePiece(s[x][squareCol].getPiece());
+										System.out.println("=====================");
 
 										return s[x][squareCol];
 									}
-									else
+									else{
+										System.out.println("=====================");
 										return s[x][squareCol];
+									}
 								}
 								else if (s[x][squareCol].getVaccancy() == false)
 								{
 									System.out.println("Blocked\n");
+									System.out.println("=====================");
 									return null;
 								}
 								else if (x == squareRow && s[x][squareCol].getRow() == squareRow && s[x][squareCol].getVaccancy() == true )
 								{
-
+									System.out.println("=====================");
 									return s[x][squareCol];
 								}
 							} // end for
@@ -97,20 +106,23 @@ public class Rook extends Piece {
 									if (GameManager.getInstance().isProcessingKing() == false)
 									{
 										p.takePiece(s[squareRow][x].getPiece());
-
+										System.out.println("=====================");
 										return s[squareRow][x];
 									}
-									else
+									else{
+										System.out.println("=====================");
 										return s[squareRow][x];
+									}
 								}
 								else if (s[squareRow][x].getVaccancy() == false)
 								{
 									System.out.println("Blocked\n");
+									System.out.println("=====================");
 									return null;
 								}
 								else if (x == squareCol && s[squareRow][x].getCol() == squareCol && s[squareRow][x].getVaccancy() == true )
 								{
-
+									System.out.println("=====================");
 									return s[squareRow][x];
 								}
 							} // end for
@@ -126,20 +138,23 @@ public class Rook extends Piece {
 									if (GameManager.getInstance().isProcessingKing() == false)
 									{
 										p.takePiece(s[squareRow][x].getPiece());
-
+										System.out.println("=====================");
 										return s[squareRow][x];
 									}
-									else
+									else{
+										System.out.println("=====================");
 										return s[squareRow][x];
+									}
 								}
 								else if (s[squareRow][x].getVaccancy() == false)
 								{
 									System.out.println("Blocked\n");
+									System.out.println("=====================");
 									return null;
 								}
 								else if (x == squareCol && s[squareRow][x].getCol() == squareCol && s[squareRow][x].getVaccancy() == true )
 								{
-
+									System.out.println("=====================");
 									return s[squareRow][x];
 								}
 							} // end for
@@ -147,6 +162,7 @@ public class Rook extends Piece {
 						else
 						{
 							System.out.println("Can't move there\n");
+							System.out.println("=====================");
 							return null;
 						}
 					} // end if

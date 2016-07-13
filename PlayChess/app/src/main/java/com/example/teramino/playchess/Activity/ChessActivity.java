@@ -1,10 +1,12 @@
 package com.example.teramino.playchess.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -31,11 +33,15 @@ public class ChessActivity extends AppCompatActivity {
 
    public Firebase mRef;
 
+    public Button restart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chess_board);
+
+        restart = (Button) findViewById(R.id.restartButton);
 
         chessBoard = (TableLayout) findViewById(R.id.board);
 
@@ -45,6 +51,12 @@ public class ChessActivity extends AppCompatActivity {
 
     }
 
+
+    public void restartButton(View v){
+        Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
 
 
 //    private void initSquares() {
