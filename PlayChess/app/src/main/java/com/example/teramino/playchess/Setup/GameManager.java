@@ -33,8 +33,7 @@ public class GameManager {
 		return instance;
 	}
 
-	private GameManager() {
-	}
+	private GameManager() {}
 
 	public void endTurn() {
 		setMoveConfirm();

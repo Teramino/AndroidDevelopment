@@ -34,6 +34,7 @@ public class Queen extends Piece {
 								for (int x = (pRowLocation - 1); x>=squareRow; x--)
 								{
 									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
+									// if there's a opp piece on that square
 									if(x == squareRow && s[x][squareCol].getVaccancy() == false && p.getColor() != s[x][squareCol].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -58,6 +59,7 @@ public class Queen extends Piece {
 										System.out.println("Cant move there\n");
 										return null;
 									}
+
 								} // end for
 							} // end if
 							// upLeft

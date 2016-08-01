@@ -442,7 +442,7 @@ public class Board
 								loaderX = col;
 								loaderY = row;
 // Print Move List
-//								MoveList();
+								MoveList();
 
 								if (activePiece.getWhosePiece() == "MY") {
 
@@ -584,24 +584,24 @@ public class Board
 	}
 
 //=============== List of Moves ===================
-//	public void MoveList() {
-//		ListFactory p = null;
-//
-//		p = new ListFactory(null, 0, 0);
-//		p.setName(loaderName);
-//		p.setRow(loaderY);
-//		p.setCol(loaderX);
-//
-//		getPieceList().add(p);
-//		setPieceListCount(getPieceListCount() + 1);
-//
-//		System.out.println("Move List: ");
-//		for( ListFactory print : Board.getPieceList())
-//		{
-//			System.out.println(print.getName());
-//		}
-//		System.out.println("====================");
-//	}
+	public void MoveList() {
+		ListFactory p = null;
+
+		p = new ListFactory(null, 0, 0);
+		p.setName(loaderName);
+		p.setRow(loaderY);
+		p.setCol(loaderX);
+
+		getPieceList().add(p);
+		setPieceListCount(getPieceListCount() + 1);
+
+		System.out.println("Move List: ");
+		for( ListFactory print : Board.getPieceList())
+		{
+			System.out.println(print.getName());
+		}
+		System.out.println("====================");
+	}
 
 	public void cancelMove() {
 		if (activePiece != null && activePiece.getHasMoved() == true)
