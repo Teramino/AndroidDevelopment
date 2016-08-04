@@ -58,6 +58,9 @@ public class Board
 
 	private Player [] players;
 
+/* Refers to images of pieces
+pieces are addressed in order from left to right started with the left rook
+*/
 	private Integer [] whitePieces = {
 			R.drawable.white_rook, R.drawable.white_knight, R.drawable.white_bishop, R.drawable.white_king,
 			R.drawable.white_queen, R.drawable.white_bishop, R.drawable.white_knight, R.drawable.white_rook,
@@ -74,7 +77,7 @@ public class Board
 
 
 	// whoever becomes player 0 they become the white pieces and vice versa
-	// i hard coded to start at 0 but however you set up the player to be initialized the code is the pieces are initialized 
+	// i hard coded to start at 0 however you set up the player to be initialized the code is the pieces are initialized
 	// accordingly in the Board constructor
 	// players have to be initialized before the setupBoard method is called which is called in board
 	// i tried to flip the board by having the top row start off at the hightest and count down but didnt work
@@ -102,6 +105,7 @@ public class Board
 
 	}
 
+	// Setup Chess
 	public void setupGame(Context context, TableLayout chessBoard){
 		this.context = context;
 		this.chessBoard = chessBoard;
@@ -148,6 +152,7 @@ public class Board
 
 	private void setBoard(){
 
+		// Sets players
 		players = new Player[2];
 
 		players[0] = new Player(myPieces, "Player1");
@@ -177,6 +182,7 @@ public class Board
 						(ImageView) squareContainerView.findViewById(R.id.square_background);
 				squareView.setLayoutParams(new FrameLayout.LayoutParams(135, 135));
 
+				// Set board color
 				if(i%2 == 0)
 				{
 					if(j%2==0)
@@ -191,7 +197,7 @@ public class Board
 					else
 						squareView.setBackgroundColor(Color.WHITE);
 				}
-
+// =============== Pieces are set here but should be changed how they are set based on the player ==================
 //myPiece first row
 				if (i == 7)
 				{
@@ -281,7 +287,7 @@ public class Board
 					@Override
 					public void onClick(View v) {
 
-						// can work
+						// highlight can work
 						// image are drawn over each other in the order made
 						// just need to figure how to reimage the piece image
 //						FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(80,80);
@@ -292,7 +298,7 @@ public class Board
 						// find square clicked
 						squareClicked = findSquareClicked(v);
 
-						// first click
+// ================================ First Click ====================================== //
 						for (int i = 0; i < myPieces.length; i++) {
 							if (myPieces[i].getRow() == squareClicked.getRow() && myPieces[i].getCol() == squareClicked.getCol() && myPieces[i].isDestroyed() == false) {
 
@@ -392,35 +398,41 @@ public class Board
 							}
 
 						} // end for
+// =============================== End First Click ====================================== //
 
+// =============================== Second Click ====================================== //
 						// second click piece will move
 						// verifies second click is on the board
 						// invalid click
-						for (int i = 0; i < getBoardSquare().length; i++) {
-
-							boolean contains = false;
-							for (int j = 0; j < getBoardSquare()[i].length; j++) {
-
-								if (activePiece != null && getBoardSquare()[i][j].getRow() == activePiece.getRow() && getBoardSquare()[i][j].getCol() == activePiece.getCol()) {
-									contains = true;
-									break;
-								}
-
-								// I dont think this block is needed
-//								// if there is a click off the board
-//								else if (i == getBoardSquare().length - 1 && j == getBoardSquare()[i].length - 1) {
+// ====================== Retired code ====================================================
+						// code is retired bc only the squares are clickable
+						// thefore an invlaid click cant happen
+//						for (int i = 0; i < getBoardSquare().length; i++) {
 //
-//									System.out.println("Can't click there\n");
-//									System.out.println("====================");
-//									if (activePiece != null)
-//										activePiece.setInActive();
-//									activePiece = null;
-//									return;
+//							boolean contains = false;
+//							for (int j = 0; j < getBoardSquare()[i].length; j++) {
+//
+//								if (activePiece != null && getBoardSquare()[i][j].getRow() == activePiece.getRow() && getBoardSquare()[i][j].getCol() == activePiece.getCol()) {
+//									contains = true;
+//									break;
 //								}
-							}
-							if (contains)
-								break;
-						}
+//
+//								// I dont think this block is needed
+////								// if there is a click off the board
+////								else if (i == getBoardSquare().length - 1 && j == getBoardSquare()[i].length - 1) {
+////
+////									System.out.println("Can't click there\n");
+////									System.out.println("====================");
+////									if (activePiece != null)
+////										activePiece.setInActive();
+////									activePiece = null;
+////									return;
+////								}
+//							}
+//							if (contains)
+//								break;
+//						}
+// ====================== Retired code ====================================================
 
 						// valid click
 						for (int x = 0; x < numPieces; x++) {
@@ -583,7 +595,7 @@ public class Board
 			return s;
 	}
 
-//=============== List of Moves ===================
+//=============== List Moves Made ===================
 	public void MoveList() {
 		ListFactory p = null;
 
@@ -602,6 +614,7 @@ public class Board
 		}
 		System.out.println("====================");
 	}
+//=============== List Moves Made ===================
 
 	public void cancelMove() {
 		if (activePiece != null && activePiece.getHasMoved() == true)
