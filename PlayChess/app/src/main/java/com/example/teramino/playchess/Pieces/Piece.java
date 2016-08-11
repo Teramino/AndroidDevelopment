@@ -26,6 +26,8 @@ public class Piece {
     protected int row;
     protected int col;
     protected String whosePiece;
+    protected boolean isChecking;
+    protected boolean isBlocking;
 
 
     public Piece() {}
@@ -35,6 +37,22 @@ public class Piece {
         this.name = name;
         this.color = color;
         this.whosePiece = ownership;
+    }
+
+    public boolean isChecking() {
+        return isChecking;
+    }
+
+    public void setChecking(boolean checking) {
+        isChecking = checking;
+    }
+
+    public boolean isBlocking() {
+        return isBlocking;
+    }
+
+    public void setBlocking(boolean blocking) {
+        isBlocking = blocking;
     }
 
     public String getWhosePiece() {
@@ -219,58 +237,57 @@ public class Piece {
                     this.hasMoved = true;
 //                    }
 
-////                     can use this to for multiple checks on MY
-                    if (GameManager.getInstance().OPPChecked == true && p[i].getWhosePiece() == "OPP" && GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getOppPieces(),
-                            Board.getInstance().getMyKing(),
-                            Board.getInstance().getSquares(),
-                            Board.getInstance().getMyKing().getRow(),
-                            Board.getInstance().getMyKing().getCol()) == true )
-                    {
-                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " still in check");
-                        System.out.println("=========MY===========");
+//////                     can use this to for multiple checks on MY
+//                    if (GameManager.getInstance().OPPChecked == true && p[i].getWhosePiece() == "OPP" && GameManager.getInstance().isKingChecked(
+//                            this,
+//                            Board.getInstance().getMyKing(),
+//                            Board.getInstance().getSquares(),
+//                            Board.getInstance().getMyKing().getRow(),
+//                            Board.getInstance().getMyKing().getCol()) == true )
+//                    {
+//                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " still in check");
+//                        System.out.println("=========MY===========");
+//
+//                        Board.getInstance().cancelMove();
+//
+//                        System.out.println("====================");
+//                        System.out.println(" ");
+//                        System.out.println(" ");
+//                        return;
+//                    }
+//                    else
+//                    GameManager.getInstance().OPPChecked = false;
+//////                    // can use this to for multiple checks on OPP
+////                    // if in check and move doesnt block check its cancelled
+////                   else
+//                    if(GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingCheckedRollCall(
+//                            Board.getInstance().getOppPieces(),
+//                            Board.getInstance().getMyKing(),
+//                            Board.getInstance().getSquares(),
+//                            Board.getInstance().getMyKing().getRow(),
+//                            Board.getInstance().getMyKing().getCol()))
+//                    {
+//                        System.out.println("Can't move " + p[i].getName() + "... " + Board.getInstance().getMyKing().getName() + " still in check");
+//                        System.out.println("=========MY===========");
+//
+//                        Board.getInstance().cancelMove();
+//
+//                        System.out.println("====================");
+//                        System.out.println(" ");
+//                        System.out.println(" ");
+//                        return;
+//                    }
+//                    else
+//                        GameManager.getInstance().setKingCheck(false);
 
-                        Board.getInstance().cancelMove();
-
-                        System.out.println("====================");
-                        System.out.println(" ");
-                        System.out.println(" ");
-                        return;
-                    }
-                    else
-                    GameManager.getInstance().OPPChecked = false;
-////                    // can use this to for multiple checks on OPP
-//                    // if in check and move doesnt block check its cancelled
-//                   else
-                    if(GameManager.getInstance().getKingCheck() == true && p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getOppPieces(),
-                            Board.getInstance().getMyKing(),
-                            Board.getInstance().getSquares(),
-                            Board.getInstance().getMyKing().getRow(),
-                            Board.getInstance().getMyKing().getCol()))
-                    {
-                        System.out.println("Can't move " + p[i].getName() + "... " + Board.getInstance().getMyKing().getName() + " still in check");
-                        System.out.println("=========MY===========");
-
-                        Board.getInstance().cancelMove();
-
-                        System.out.println("====================");
-                        System.out.println(" ");
-                        System.out.println(" ");
-                        return;
-                    }
-                    else
-                        GameManager.getInstance().setKingCheck(false);
-
-                    // checks to see if OPP move puts me king in check
+                    // checks to see if OPP move puts my king in check
                     if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getOppPieces(),
+                            this,
                             Board.getInstance().getMyKing(),
                             Board.getInstance().getSquares(),
                             Board.getInstance().getMyKing().getRow(),
                             Board.getInstance().getMyKing().getCol()))
                     {
-//                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
                         GameManager.getInstance().setKingCheck(true);
                         System.out.println("==========OPP==========");
 //
@@ -282,28 +299,28 @@ public class Piece {
                         return;
                     }
                     // checks to see if OPP move puts own king in check
-                    else if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getMyPieces(),
-                            Board.getInstance().getOppKing(),
-                            Board.getInstance().getSquares(),
-                            Board.getInstance().getOppKing().getRow(),
-                            Board.getInstance().getOppKing().getCol()))
-                    {
-                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
-//                            GameManager.getInstance().setKingCheck(true);
-                        System.out.println("==========OPP==========");
+//                    else if (p[i].getWhosePiece() == "OPP" &&  GameManager.getInstance().isKingCheckedRollCall(
+//                            Board.getInstance().getMyPieces(),
+//                            Board.getInstance().getOppKing(),
+//                            Board.getInstance().getSquares(),
+//                            Board.getInstance().getOppKing().getRow(),
+//                            Board.getInstance().getOppKing().getCol()))
+//                    {
+//                        System.out.println("Can't move " +p[i].getName() +"... " +Board.getInstance().getMyKing().getName() + " can be attacked");
+////                            GameManager.getInstance().setKingCheck(true);
+//                        System.out.println("==========OPP==========");
+////
+//                        Board.getInstance().cancelMove();
 //
-                        Board.getInstance().cancelMove();
-
-                        System.out.println("====================");
-                        System.out.println(" ");
-                        System.out.println(" ");
-                        return;
-                    }
+//                        System.out.println("====================");
+//                        System.out.println(" ");
+//                        System.out.println(" ");
+//                        return;
+//                    }
 
                     // checks to see if move puts OPP king in check
                     else if(p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getMyPieces(),
+                            this,
                             Board.getInstance().getOppKing(),
                             Board.getInstance().getSquares(),
                             Board.getInstance().getOppKing().getRow(),
@@ -327,23 +344,23 @@ public class Piece {
                         return;
                     }
                     // checks to see if move puts own king in check
-                    else if(p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingChecked(
-                            Board.getInstance().getOppPieces(),
-                            Board.getInstance().getMyKing(),
-                            Board.getInstance().getSquares(),
-                            Board.getInstance().getMyKing().getRow(),
-                            Board.getInstance().getMyKing().getCol()))
-                    {
-//                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " can be attacked");
-
+//                    else if(p[i].getWhosePiece() == "MY" && GameManager.getInstance().isKingCheckedRollCall(
+//                            Board.getInstance().getOppPieces(),
+//                            Board.getInstance().getMyKing(),
+//                            Board.getInstance().getSquares(),
+//                            Board.getInstance().getMyKing().getRow(),
+//                            Board.getInstance().getMyKing().getCol()))
+//                    {
+////                        System.out.println("Can't move " +p[i].getName()+ "... " +Board.getInstance().getMyKing().getName() + " can be attacked");
 //
-//                        Board.getInstance().cancelMove();
-
-                        System.out.println("====================");
-                        System.out.println(" ");
-                        System.out.println(" ");
-                        return;
-                    }
+////
+////                        Board.getInstance().cancelMove();
+//
+//                        System.out.println("====================");
+//                        System.out.println(" ");
+//                        System.out.println(" ");
+//                        return;
+//                    }
                     else
                     {
                         // Post move to cloud

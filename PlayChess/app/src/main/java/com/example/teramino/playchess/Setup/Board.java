@@ -302,6 +302,12 @@ pieces are addressed in order from left to right started with the left rook
 						for (int i = 0; i < myPieces.length; i++) {
 							if (myPieces[i].getRow() == squareClicked.getRow() && myPieces[i].getCol() == squareClicked.getCol() && myPieces[i].isDestroyed() == false) {
 
+								if (myPieces[i].isBlocking()){
+									System.out.println("Blocking\n");
+									System.out.println("====================");
+									activePiece = null;
+									return;
+								}
 								// deactivate piece if already activated
 								if (myPieces[i].isActive()) {
 									myPieces[i].setInActive();
@@ -349,6 +355,13 @@ pieces are addressed in order from left to right started with the left rook
 								}// end else
 							} // end if
 							else if (oppPieces[i].getRow() == squareClicked.getRow() && oppPieces[i].getCol() == squareClicked.getCol() && oppPieces[i].isDestroyed() == false) {
+
+								if (oppPieces[i].isBlocking()){
+									System.out.println("Blocking\n");
+									System.out.println("====================");
+									activePiece = null;
+									return;
+								}
 
 								// deactivate piece if already activated
 								if (oppPieces[i].isActive()) {
@@ -481,7 +494,7 @@ pieces are addressed in order from left to right started with the left rook
 								if (activePiece != null) {
 //                                    System.out.print("OPP_");
 //									GameManager.getInstance().setKingCheck(
-//											GameManager.getInstance().isKingChecked(getMyPieces(),
+//											GameManager.getInstance().isKingCheckedRollCall(getMyPieces(),
 //													oppKing, getSquares(), oppKing.getRow(), oppKing.getCol()));
 
 									// redraw the image
@@ -704,7 +717,7 @@ pieces are addressed in order from left to right started with the left rook
 			}
 			if (activePiece.getWhosePiece() == "MY"){
 
-				GameManager.getInstance().setKingCheck(GameManager.getInstance().isKingChecked(
+				GameManager.getInstance().setKingCheck(GameManager.getInstance().isKingCheckedRollCall(
 						Board.getInstance().getOppPieces(),
 						Board.getInstance().getMyKing(),
 						Board.getInstance().getSquares(),
@@ -718,7 +731,7 @@ pieces are addressed in order from left to right started with the left rook
 			}
 			else if(activePiece.getWhosePiece() == "OPP"){
 
-				GameManager.getInstance().setKingCheck(GameManager.getInstance().isKingChecked(
+				GameManager.getInstance().setKingCheck(GameManager.getInstance().isKingCheckedRollCall(
 						Board.getInstance().getOppPieces(),
 						Board.getInstance().getMyKing(),
 						Board.getInstance().getSquares(),
