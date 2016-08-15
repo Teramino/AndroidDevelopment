@@ -227,10 +227,12 @@ public class GameManager {
 			}
 			else {
 				processingKing = false;
+				System.out.println("*********************");
 				return false;
 			}
 		}
 		processingKing = false;
+		System.out.println("*********************");
 		return false;
 
 	}

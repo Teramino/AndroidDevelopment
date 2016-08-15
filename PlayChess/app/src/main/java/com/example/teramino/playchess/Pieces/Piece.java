@@ -28,8 +28,6 @@ public class Piece {
     protected String whosePiece;
     protected boolean isChecking;
     protected boolean isBlocking;
-    protected boolean canAttack;
-
 
     public Piece() {}
 
@@ -38,14 +36,6 @@ public class Piece {
         this.name = name;
         this.color = color;
         this.whosePiece = ownership;
-    }
-
-    public boolean isAttacking() {
-        return canAttack;
-    }
-
-    public void setCanAttack(boolean canAttack) {
-        this.canAttack = canAttack;
     }
 
     public boolean isChecking() {
@@ -252,7 +242,14 @@ public class Piece {
                         Square ss1 = this.canMove(this, s,
                                 GameManager.getInstance().getBlockedPieces().get(index).getCol(),
                                 GameManager.getInstance().getBlockedPieces().get(index).getRow());
-                        if (ss1 == null) {
+                        if (ss1 == null || !GameManager.getInstance().isKingChecked(
+                                this,
+                                Board.getInstance().getOppKing(),
+                                Board.getInstance().getSquares(),
+                                Board.getInstance().getOppKing().getRow(),
+                                Board.getInstance().getOppKing().getCol())) {
+                            System.out.println("Unblocking "+
+                                    GameManager.getInstance().getBlockedPieces().get(index).getName());
                             GameManager.getInstance().getBlockedPieces().get(index).setBlocking(false);
                             GameManager.getInstance().getBlockedPieces().remove(index);
                             GameManager.getInstance().getAttackingPieces().remove(index);

@@ -48,8 +48,10 @@ public class Queen extends Piece {
 									else if ( s[x][squareCol].getVaccancy() == false )
 									{
 										System.out.println("Up Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[x][squareCol].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareRow && s[x][squareCol].getVaccancy() == true )
@@ -86,8 +88,10 @@ public class Queen extends Piece {
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("UpLeft Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[x][z].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
@@ -129,8 +133,10 @@ public class Queen extends Piece {
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("UpRight Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[x][z].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
@@ -169,8 +175,10 @@ public class Queen extends Piece {
 									else if ( s[x][squareCol].getVaccancy() == false )
 									{
 										System.out.println("Down Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[x][squareCol].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareRow && s[x][squareCol].getVaccancy() == true )
@@ -206,8 +214,10 @@ public class Queen extends Piece {
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("DownLeft Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[x][z].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareRow && z == squareCol && s[x][z].getVaccancy() == true )
@@ -249,8 +259,10 @@ public class Queen extends Piece {
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("DownRight Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[x][z].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareRow && z == squareCol && s[x][z].getVaccancy() == true )
@@ -289,8 +301,10 @@ public class Queen extends Piece {
 									else if ( s[squareRow][x].getVaccancy() == false )
 									{
 										System.out.println("Left Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[squareRow][x].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareCol && s[squareRow][x].getVaccancy() == true )
@@ -323,8 +337,10 @@ public class Queen extends Piece {
 									else if (s[squareRow][x].getVaccancy() == false)
 									{
 										System.out.println("Right Blocked\n");
-										if (GameManager.getInstance().isProcessingKing())
+										if (GameManager.getInstance().isProcessingKing()) {
 											GameManager.getInstance().blocking(s[squareRow][x].getPiece());
+											GameManager.getInstance().attacking(this);
+										}
 										return null;
 									}
 									else if (x == squareCol && s[squareRow][x].getVaccancy() == true )
