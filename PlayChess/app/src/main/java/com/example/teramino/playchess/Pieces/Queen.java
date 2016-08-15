@@ -49,7 +49,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("Up Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[x][squareCol].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[x][squareCol].getPiece());
 										return null;
 									}
 									else if (x == squareRow && s[x][squareCol].getVaccancy() == true )
@@ -87,7 +87,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("UpLeft Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[x][z].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[x][z].getPiece());
 										return null;
 									}
 									if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
@@ -130,7 +130,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("UpRight Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[x][z].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[x][z].getPiece());
 										return null;
 									}
 									else if (x == squareRow && z == squareCol && s[i][j].getVaccancy() == true )
@@ -170,7 +170,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("Down Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[x][squareCol].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[x][squareCol].getPiece());
 										return null;
 									}
 									else if (x == squareRow && s[x][squareCol].getVaccancy() == true )
@@ -207,7 +207,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("DownLeft Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[x][z].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[x][z].getPiece());
 										return null;
 									}
 									else if (x == squareRow && z == squareCol && s[x][z].getVaccancy() == true )
@@ -250,7 +250,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("DownRight Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[x][z].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[x][z].getPiece());
 										return null;
 									}
 									else if (x == squareRow && z == squareCol && s[x][z].getVaccancy() == true )
@@ -290,7 +290,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("Left Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[squareRow][x].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[squareRow][x].getPiece());
 										return null;
 									}
 									else if (x == squareCol && s[squareRow][x].getVaccancy() == true )
@@ -324,7 +324,7 @@ public class Queen extends Piece {
 									{
 										System.out.println("Right Blocked\n");
 										if (GameManager.getInstance().isProcessingKing())
-											s[squareRow][x].getPiece().setBlocking(true);
+											GameManager.getInstance().blocking(s[squareRow][x].getPiece());
 										return null;
 									}
 									else if (x == squareCol && s[squareRow][x].getVaccancy() == true )

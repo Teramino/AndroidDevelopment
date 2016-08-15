@@ -21,6 +21,21 @@ public class Bishop extends Piece
 
 		System.out.println(this.getName());
 
+		// used to quickly detect if bishop CANT attack king
+		if (GameManager.getInstance().isProcessingKing()){
+			int blah = (squareCol+squareRow) %2;
+			if (this.getName() == "My_Bishop1" && (squareCol+squareRow) %2 != 1){
+				System.out.println("Cant move there\n");
+				System.out.println("============");
+				return null;
+			}
+			else if (this.getName() == "My_Bishop2" && (squareCol+squareRow) %2 != 0){
+				System.out.println("Cant move there\n");
+				System.out.println("============");
+				return null;
+			}
+		}
+
 
 		if(p == null)
 			System.out.println("Select a piece");
@@ -65,8 +80,12 @@ public class Bishop extends Piece
 								}
 								else if ( s[x][z].getVaccancy() == false )
 								{
-									System.out.println("Blocked\n");
+									System.out.println("UpLeft Blocked\n");
                                     System.out.println("============");
+									if (GameManager.getInstance().isProcessingKing()) {
+										GameManager.getInstance().blocking(s[x][z].getPiece());
+										GameManager.getInstance().attacking(this);
+									}
 									return null;
 								}
 								else if (s[x][z].getCol()== squareCol && s[x][z].getRow() == squareRow
@@ -116,8 +135,12 @@ public class Bishop extends Piece
 								}
 								else if ( s[x][z].getVaccancy() == false )
 								{
-									System.out.println("Blocked\n");
+									System.out.println("UpRight Blocked\n");
                                     System.out.println("============");
+									if (GameManager.getInstance().isProcessingKing()) {
+										GameManager.getInstance().blocking(s[x][z].getPiece());
+										GameManager.getInstance().attacking(this);
+									}
 									return null;
 								}
 								else if (s[x][z].getCol() == squareCol && s[x][z].getRow() == squareRow
@@ -168,8 +191,12 @@ public class Bishop extends Piece
                                 }
 								else if ( s[x][z].getVaccancy() == false )
 								{
-									System.out.println("Blocked\n");
+									System.out.println("DownLeft Blocked\n");
                                     System.out.println("============");
+									if (GameManager.getInstance().isProcessingKing()) {
+										GameManager.getInstance().blocking(s[x][z].getPiece());
+										GameManager.getInstance().attacking(this);
+									}
 									return null;
 								}
 								else if (s[x][z].getCol() == squareCol && s[x][z].getRow()== squareRow
@@ -220,8 +247,12 @@ public class Bishop extends Piece
                                 }
 								else if ( s[x][z].getVaccancy() == false )
 								{
-									System.out.println("Blocked\n");
+									System.out.println("DownRight Blocked\n");
                                     System.out.println("============");
+									if (GameManager.getInstance().isProcessingKing()) {
+										GameManager.getInstance().blocking(s[x][z].getPiece());
+										GameManager.getInstance().attacking(this);
+									}
 									return null;
 								}
 								else if (s[x][z].getCol()== squareCol && s[x][z].getRow()== squareRow

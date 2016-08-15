@@ -57,7 +57,8 @@ public class Pawn extends Piece
 									System.out.println("Good");
 									System.out.println("====================");
 									return s[i][j];
-								} else // if true move doesnt actually happen
+								}
+								else // if true move doesnt actually happen
 									return s[i][j];
 							}
 							//upRight
@@ -70,7 +71,8 @@ public class Pawn extends Piece
 									return s[i][j];
 								} else
 									return s[i][j];
-							} else {
+							}
+							else {
 								System.out.println("Can't move there\n");
 								System.out.println("====================");
 								return null;
@@ -107,7 +109,8 @@ public class Pawn extends Piece
 										System.out.println("Good");
 										System.out.println("====================");
 										return s[i][j];
-									} else
+									}
+									else
 										return s[i][j];
 								}
 								//upRight
@@ -120,7 +123,8 @@ public class Pawn extends Piece
 										return s[i][j];
 									} else
 										return s[i][j];
-								} else {
+								}
+								else {
 									System.out.println("Can't move there\n");
 									System.out.println("====================");
 									return null;

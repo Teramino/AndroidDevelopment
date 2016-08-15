@@ -3,6 +3,8 @@ package com.example.teramino.playchess.Setup;
 import com.example.teramino.playchess.Pieces.*;
 import com.example.teramino.playchess.Player;
 
+import java.util.ArrayList;
+
 public class GameManager {
 	private static GameManager instance;
 	private String playerColor;
@@ -25,6 +27,8 @@ public class GameManager {
 	private int oldRow;
 	public boolean OPPChecked = false;
 
+	private ArrayList<Piece> blockedPieces = new ArrayList<Piece>();
+	private ArrayList<Piece> attackingPieces = new ArrayList<Piece>();
 
 	public static GameManager getInstance() {
 		if (instance == null) {
@@ -34,6 +38,14 @@ public class GameManager {
 	}
 
 	private GameManager() {}
+
+	public ArrayList<Piece> getBlockedPieces() {
+		return blockedPieces;
+	}
+
+	public ArrayList<Piece> getAttackingPieces() {
+		return attackingPieces;
+	}
 
 	public void endTurn() {
 		setMoveConfirm();
@@ -116,6 +128,14 @@ public class GameManager {
 	}
 
 
+	public void blocking(Piece p){
+		p.setBlocking(true);
+		blockedPieces.add(p);
+	}
+
+	public void attacking(Piece p){
+		attackingPieces.add(p);
+	}
 
 	public boolean isKingChecked(Piece p, Piece king,  Square [][] s, int kingRow, int kingCol) {
 		processingKing = true;
@@ -201,12 +221,16 @@ public class GameManager {
 				}
 				else
 					System.out.println("No block square");
-			}
+
 				System.out.println("*********************");
 				return true;
-
-
+			}
+			else {
+				processingKing = false;
+				return false;
+			}
 		}
+		processingKing = false;
 		return false;
 
 	}

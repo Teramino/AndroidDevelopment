@@ -164,15 +164,15 @@ pieces are addressed in order from left to right started with the left rook
 		// used for pawns
 		int count = 8;
 		// row
-		for (int i = 0; i < numRows; i++) {
+		for (int row = 0; row < numRows; row++) {
 
 			TableRow tr = new TableRow(context);
 			tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 			// col
-			for (int j = 0; j < numCols; j++) {
+			for (int col = 0; col < numCols; col++) {
 
 				// initalize square
-				squares[i][j] = new Square();
+				squares[row][col] = new Square();
 
 				// access Square layout
 				final LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -183,103 +183,115 @@ pieces are addressed in order from left to right started with the left rook
 				squareView.setLayoutParams(new FrameLayout.LayoutParams(135, 135));
 
 				// Set board color
-				if(i%2 == 0)
+				if(row%2 == 0)
 				{
-					if(j%2==0)
+					if(col%2==0)
 						squareView.setBackgroundColor(Color.WHITE);
 					else
 						squareView.setBackgroundColor(Color.RED);
 				}
 				else
 				{
-					if(j%2==0)
+					if(col%2==0)
 						squareView.setBackgroundColor(Color.RED);
 					else
 						squareView.setBackgroundColor(Color.WHITE);
 				}
 // =============== Pieces are set here but should be changed how they are set based on the player ==================
-//myPiece first row
-				if (i == 7)
-				{
-					getMyPieces()[j].setSquare(getSquares()[i][j]);
-					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
-                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
-                    params.gravity= Gravity.CENTER;
-                    piece.setLayoutParams(params);
-					// needs to be config based on players color
-					piece.setImageDrawable(context.getResources().getDrawable(whitePieces[j]));
-//                    piece.setImageResource(whitePieces[j]);
 
-					// set row and col of piece
-					myPieces[j].setRow(i);
-					myPieces[j].setCol(j);
-
-					// set image
-					myPieces[j].setImageInteger(j);
-
-				}
-				// myPiece second row
-				else if (i == 6)
-				{
-					getMyPieces()[count].setSquare(getSquares()[i][j]);
-					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
-                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
-					params.gravity= Gravity.CENTER;
-                    piece.setLayoutParams(params);
-					// needs to be config based on players color
-					piece.setImageDrawable(context.getResources().getDrawable(whitePieces[count]));
-//                    piece.setImageResource(whitePieces[count]);
-
-					// set row and col of piece
-					myPieces[count].setRow(i);
-					myPieces[count].setCol(j);
-
-					// set image
-					myPieces[count].setImageInteger(count);
-
-					count++;
-				}
-				//oppPiece second row
-				else if (i == 1)
-				{
-					getOppPieces()[count].setSquare(getSquares()[i][j]);
-					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
-                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
-                    params.gravity= Gravity.CENTER;
-                    piece.setLayoutParams(params);
-					// needs to be config based on players color
-					piece.setImageDrawable(context.getResources().getDrawable(blackPieces[count]));
-//                    piece.setImageResource(blackPieces[count]);
-
-					// set row and col of piece
-					oppPieces[count].setRow(i);
-					oppPieces[count].setCol(j);
-
-					// set image
-					oppPieces[count].setImageInteger(count);
-
-					count++;
-				}
 				// oppPiece first row
-				else if (i == 0)
+				if (row == 0)
 				{
-					getOppPieces()[j].setSquare(getSquares()[i][j]);
+					getOppPieces()[col].setSquare(getSquares()[row][col]);
 					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
 					FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
 					params.gravity= Gravity.CENTER;
 					piece.setLayoutParams(params);
 					// needs to be config based on players color
-					piece.setImageDrawable(context.getResources().getDrawable(blackPieces[j]));
+					piece.setImageDrawable(context.getResources().getDrawable(blackPieces[col]));
 //					piece.setImageResource(blackPieces[j]);
 
 					// set row and col of piece
-					oppPieces[j].setRow(i);
-					oppPieces[j].setCol(j);
+					oppPieces[col].setRow(row);
+					oppPieces[col].setCol(col);
 
 					// set image
-					oppPieces[j].setImageInteger(j);
+					oppPieces[col].setImageInteger(col);
 
 				}
+				//oppPiece second row
+				else if (row == 1)
+				{
+					getOppPieces()[count].setSquare(getSquares()[row][col]);
+					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
+					FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
+					params.gravity= Gravity.CENTER;
+					piece.setLayoutParams(params);
+					// needs to be config based on players color
+					piece.setImageDrawable(context.getResources().getDrawable(blackPieces[count]));
+//                    piece.setImageResource(blackPieces[count]);
+
+					// set row and col of piece
+					oppPieces[count].setRow(row);
+					oppPieces[count].setCol(col);
+
+					// set image
+					oppPieces[count].setImageInteger(count);
+
+					count++;
+					// count get reset after loop
+				}
+
+				// myPiece first row
+				else if (row == 6)
+				{
+					// count = 8
+					// use to access pawns
+
+					getMyPieces()[count].setSquare(getSquares()[row][col]);
+					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
+					FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
+					params.gravity= Gravity.CENTER;
+					piece.setLayoutParams(params);
+					// needs to be config based on players color
+					piece.setImageDrawable(context.getResources().getDrawable(whitePieces[count]));
+//                    piece.setImageResource(whitePieces[count]);
+
+					// set row and col of piece
+					myPieces[count].setRow(row);
+					myPieces[count].setCol(col);
+
+					// set image
+					myPieces[count].setImageInteger(count);
+
+					count++;
+					// count get reset after loop
+				}
+				//myPiece second row
+				else if (row == 7)
+				{
+					// using only col bc it access the first row of pieces
+					// pawns will use a different way to access
+
+					getMyPieces()[col].setSquare(getSquares()[row][col]);
+					ImageView piece = (ImageView) squareContainerView.findViewById(R.id.piece);
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(110,110);
+                    params.gravity= Gravity.CENTER;
+                    piece.setLayoutParams(params);
+					// needs to be config based on players color
+					piece.setImageDrawable(context.getResources().getDrawable(whitePieces[col]));
+//                    piece.setImageResource(whitePieces[j]);
+
+					// set row and col of piece
+					myPieces[col].setRow(row);
+					myPieces[col].setCol(col);
+
+					// set image
+					myPieces[col].setImageInteger(col);
+
+				}
+
+
 				final ImageView highlight = (ImageView) squareContainerView.findViewById(R.id.highlight);
 
 // ================ Clicked =======================================
@@ -302,12 +314,6 @@ pieces are addressed in order from left to right started with the left rook
 						for (int i = 0; i < myPieces.length; i++) {
 							if (myPieces[i].getRow() == squareClicked.getRow() && myPieces[i].getCol() == squareClicked.getCol() && myPieces[i].isDestroyed() == false) {
 
-								if (myPieces[i].isBlocking()){
-									System.out.println("Blocking\n");
-									System.out.println("====================");
-									activePiece = null;
-									return;
-								}
 								// deactivate piece if already activated
 								if (myPieces[i].isActive()) {
 									myPieces[i].setInActive();
@@ -330,6 +336,14 @@ pieces are addressed in order from left to right started with the left rook
 											System.out.println(myPieces[i].getName());
 											// positions printing our wrong
 											System.out.println("Row: " + myPieces[i].getRow() + " Col: " + myPieces[i].getCol() + "\n");
+
+											if (myPieces[i].isBlocking()){
+												myPieces[i].setInActive();
+												System.out.println("Blocking\n");
+												System.out.println("====================");
+												activePiece = null;
+												return;
+											}
 
 											//save the piece and x,y for cancelMove()
 											oldRow = myPieces[i].getRow();
@@ -356,13 +370,6 @@ pieces are addressed in order from left to right started with the left rook
 							} // end if
 							else if (oppPieces[i].getRow() == squareClicked.getRow() && oppPieces[i].getCol() == squareClicked.getCol() && oppPieces[i].isDestroyed() == false) {
 
-								if (oppPieces[i].isBlocking()){
-									System.out.println("Blocking\n");
-									System.out.println("====================");
-									activePiece = null;
-									return;
-								}
-
 								// deactivate piece if already activated
 								if (oppPieces[i].isActive()) {
 									oppPieces[i].setInActive();
@@ -385,6 +392,14 @@ pieces are addressed in order from left to right started with the left rook
 											System.out.println(oppPieces[i].getName());
 											// positions printing our wrong
 											System.out.println("Row: " + oppPieces[i].getRow() + " Col: " + oppPieces[i].getCol() + "\n");
+
+											if (oppPieces[i].isBlocking()){
+												oppPieces[i].setInActive();
+												System.out.println("Blocking\n");
+												System.out.println("====================");
+												activePiece = null;
+												return;
+											}
 
 											//save the piece and x,y for cancelMove()
 											oldRow2 = oppPieces[i].getRow();
@@ -451,8 +466,8 @@ pieces are addressed in order from left to right started with the left rook
 						for (int x = 0; x < numPieces; x++) {
 							if (myPieces[x].isActive() || oppPieces[x].isActive()) {
 
-								col = squareClicked.getCol();
-								row = squareClicked.getRow();
+								Board.this.col = squareClicked.getCol();
+								Board.this.row = squareClicked.getRow();
 
 
 //								System.out.println(activePiece.getClass());
@@ -460,12 +475,12 @@ pieces are addressed in order from left to right started with the left rook
 								// send moves to array list from here
 // Print Move
 								System.out.println("To space");
-								System.out.println("Row: " + row + " Col: " + col + "\n");
+								System.out.println("Row: " + Board.this.row + " Col: " + Board.this.col + "\n");
 								System.out.println("====================");
 
 								loaderName = activePiece.getName();
-								loaderX = col;
-								loaderY = row;
+								loaderX = Board.this.col;
+								loaderY = Board.this.row;
 // Print Move List
 								MoveList();
 
@@ -473,21 +488,21 @@ pieces are addressed in order from left to right started with the left rook
 
 									if (activePiece.getClass().toString().equalsIgnoreCase("class com.example.teramino.playchess.Pieces.King")) {
 
-										activePiece.doMove(oppPieces, getBoardSquare(), col, row);
+										activePiece.doMove(oppPieces, getBoardSquare(), Board.this.col, Board.this.row);
 
 									} else if (myPieces[x].isActive()) {
 
-										activePiece.doMove(myPieces, getBoardSquare(), col, row);
+										activePiece.doMove(myPieces, getBoardSquare(), Board.this.col, Board.this.row);
 									}
 								} else if (activePiece.getWhosePiece() == "OPP") {
 
 									if (activePiece.getClass().toString().equalsIgnoreCase("class com.example.teramino.playchess.Pieces.King")) {
 
-										activePiece.doMove(myPieces, getBoardSquare(), col, row);
+										activePiece.doMove(myPieces, getBoardSquare(), Board.this.col, Board.this.row);
 
 									} else if (oppPieces[x].isActive()) {
 
-										activePiece.doMove(oppPieces, getBoardSquare(), col, row);
+										activePiece.doMove(oppPieces, getBoardSquare(), Board.this.col, Board.this.row);
 									}
 								}
 
@@ -553,15 +568,13 @@ pieces are addressed in order from left to right started with the left rook
 				});
 
 				// set view as Square
-				squares[i][j].setSquare(squareContainerView);
+				squares[row][col].setSquare(squareContainerView);
 
 				// set row and col of square
-				squares[i][j].setRow(i);
-				squares[i][j].setCol(j);
+				squares[row][col].setRow(row);
+				squares[row][col].setCol(col);
 
 				tr.addView(squareContainerView);
-
-
 
 			}// end second for
 			count = 8;

@@ -28,6 +28,7 @@ public class Piece {
     protected String whosePiece;
     protected boolean isChecking;
     protected boolean isBlocking;
+    protected boolean canAttack;
 
 
     public Piece() {}
@@ -37,6 +38,14 @@ public class Piece {
         this.name = name;
         this.color = color;
         this.whosePiece = ownership;
+    }
+
+    public boolean isAttacking() {
+        return canAttack;
+    }
+
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
     }
 
     public boolean isChecking() {
@@ -235,6 +244,23 @@ public class Piece {
 //                        p[i].setImageInteger(newSquare);
 
                     this.hasMoved = true;
+
+                    // to check if piece is still in position to check King w/ a piece blocking the check
+                    int index = GameManager.getInstance().getAttackingPieces().indexOf(this);
+                    if (index > -1) {
+                        GameManager.getInstance().setProcessingKing(true);
+                        Square ss1 = this.canMove(this, s,
+                                GameManager.getInstance().getBlockedPieces().get(index).getCol(),
+                                GameManager.getInstance().getBlockedPieces().get(index).getRow());
+                        if (ss1 == null) {
+                            GameManager.getInstance().getBlockedPieces().get(index).setBlocking(false);
+                            GameManager.getInstance().getBlockedPieces().remove(index);
+                            GameManager.getInstance().getAttackingPieces().remove(index);
+                            GameManager.getInstance().setProcessingKing(false);
+                        }
+                        else
+                            GameManager.getInstance().setProcessingKing(false);
+                    }
 //                    }
 
 //////                     can use this to for multiple checks on MY
