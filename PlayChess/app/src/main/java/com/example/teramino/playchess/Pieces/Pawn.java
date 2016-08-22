@@ -15,9 +15,6 @@ public class Pawn extends Piece
 
 	@Override
 	public Square canMove( Piece p, Square [][] s, int squareCol, int squareRow) {
-
-		System.out.println(this.getName());
-
 //
 //		else if (  p.getsquareColor() == squareColor.lightGray)
 //		{

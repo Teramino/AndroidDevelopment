@@ -237,11 +237,15 @@ public class Piece {
 
                     // to check if piece is still in position to check King w/ a piece blocking the check
                     int index = GameManager.getInstance().getAttackingPieces().indexOf(this);
-                    if (index > -1) {
+                        if (index > -1) {
                         GameManager.getInstance().setProcessingKing(true);
+
+                            // can attacking piece still attack the blocking piece
                         Square ss1 = this.canMove(this, s,
                                 GameManager.getInstance().getBlockedPieces().get(index).getCol(),
                                 GameManager.getInstance().getBlockedPieces().get(index).getRow());
+                        // only will be true if piece cant attack blocking piece or
+                        // piece moves out of check
                         if (ss1 == null || !GameManager.getInstance().isKingChecked(
                                 this,
                                 Board.getInstance().getOppKing(),
@@ -253,6 +257,16 @@ public class Piece {
                             GameManager.getInstance().getBlockedPieces().get(index).setBlocking(false);
                             GameManager.getInstance().getBlockedPieces().remove(index);
                             GameManager.getInstance().getAttackingPieces().remove(index);
+                            System.out.println("======Attacking List======");
+                            for(int x=0; x < GameManager.getInstance().getAttackingPieces().size(); x++){
+                                System.out.println(GameManager.getInstance().getAttackingPieces().get(index).getName());
+                            }
+//                            System.out.println(GameManager.getInstance().getAttackingPieces().size());
+                            System.out.println("============");
+                            System.out.println("=====Blocking list=======");
+                            System.out.println(GameManager.getInstance().getBlockedPieces().size());
+                            System.out.println("============");
+
                             GameManager.getInstance().setProcessingKing(false);
                         }
                         else

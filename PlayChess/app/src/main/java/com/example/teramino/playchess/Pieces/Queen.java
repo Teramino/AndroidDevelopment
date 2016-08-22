@@ -133,7 +133,7 @@ public class Queen extends Piece {
 									else if (s[x][z].getVaccancy() == false)
 									{
 										System.out.println("UpRight Blocked\n");
-										if (GameManager.getInstance().isProcessingKing()) {
+										if (GameManager.getInstance().isProcessingKing() && p.getColor() != s[x][z].getPiece().getColor()) {
 											GameManager.getInstance().blocking(s[x][z].getPiece());
 											GameManager.getInstance().attacking(this);
 										}

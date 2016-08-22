@@ -49,6 +49,8 @@ public class ChessActivity extends AppCompatActivity {
         board.getInstance().setupGame(this, chessBoard);
 
 
+
+
     }
 
 

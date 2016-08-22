@@ -158,8 +158,8 @@ public class GameManager {
 				if (p.getRow() == kingRow) {
 					// check to see if the king is getting checked from the left or right
 					int kingCheckMove;
+					// checks square to the right of king
 					if (ss.getCol() > kingCol)
-						// checks square to the right of king
 						kingCheckMove = kingCol + 1;
 					else
 						// checks square to the left of king
@@ -171,15 +171,14 @@ public class GameManager {
 				else if (p.getCol() == kingCol) {
 
 					int kingCheckMove;
+					// checks square below king
 					if (p.getRow() > kingRow)
-						// checks square below king
 						kingCheckMove = kingRow + 1;
 					else
 						// checks square above king
 						kingCheckMove = kingRow - 1;
 
 					blockSquare = s[kingCol][kingCheckMove];
-
 				}
 				// diag down left
 				else if(p.getRow() > kingRow && p.getCol() < kingCol){
