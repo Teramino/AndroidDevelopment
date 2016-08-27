@@ -383,6 +383,11 @@ public class GameManager {
 
 	}
 
+	// Print Function for Each Piece Move Class
+	public void processMove(int x, int squareCol){
+		System.out.println("Processing Move Col=["+x+"] Row=["+squareCol+"]");
+	}
+
 	public boolean isProcessingKing() {
 		return processingKing;
 	}
@@ -478,4 +483,6 @@ public class GameManager {
 	public void setKingHasMoved(boolean kingHasMoved) {
 		this.kingHasMoved = kingHasMoved;
 	}
+
+
 }

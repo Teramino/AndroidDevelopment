@@ -3,7 +3,6 @@ import com.example.teramino.playchess.Setup.GameManager;
 import com.example.teramino.playchess.Setup.Square;
 
 
-
 public class Queen extends Piece {
 
 	public Queen(String name, String ownership, String color) {
@@ -33,7 +32,8 @@ public class Queen extends Piece {
 							{
 								for (int x = (pRowLocation - 1); x>=squareRow; x--)
 								{
-									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
 									// if there's a opp piece on that square
 									if(x == squareRow && s[x][squareCol].getVaccancy() == false && p.getColor() != s[x][squareCol].getPiece().getColor() )
 									{
@@ -73,8 +73,8 @@ public class Queen extends Piece {
 
 								for (int z = (p.getCol() - 1); z>=squareCol; z--)
 								{
-
-									System.out.println("Processing move[" +x+"][" +z+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +x+"][" +z+ "]");
 									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -118,8 +118,8 @@ public class Queen extends Piece {
 
 								for (int z = (p.getCol()+ 1); z<=squareCol; z++)
 								{
-
-									System.out.println("Processing move[" +x+"][" +z+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +x+"][" +z+ "]");
 									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -161,7 +161,8 @@ public class Queen extends Piece {
 							{
 								for (int x = (pRowLocation + 1); x<=squareRow; x++)
 								{
-									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +x+"][" +squareCol+ "]");
 									if(x == squareRow &&  s[x][squareCol].getVaccancy() == false && p.getColor() != s[x][squareCol].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -199,8 +200,8 @@ public class Queen extends Piece {
 
 								for (int z = (p.getCol()- 1); z>=squareCol; z--)
 								{
-
-									System.out.println("Processing move[" +x+"][" +z+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +x+"][" +z+ "]");
 									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -244,8 +245,8 @@ public class Queen extends Piece {
 
 								for (int z = (p.getCol() + 1); z<=squareCol; z++)
 								{
-
-									System.out.println("Processing move[" +x+"][" +z+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +x+"][" +z+ "]");
 									if(x == squareRow && s[x][z].getVaccancy() == false && p.getColor() != s[x][z].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -287,7 +288,8 @@ public class Queen extends Piece {
 							{
 								for (int x = (p.getCol() - 1); x>=squareCol; x--)
 								{
-									System.out.println("Processing move[" +squareRow +"][" +x+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move [" +squareRow +"][" +x+ "]");
 									if(x == squareCol && s[squareRow][x].getVaccancy() == false && p.getColor() != s[squareRow][x].getPiece().getColor())
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
@@ -323,7 +325,8 @@ public class Queen extends Piece {
 							{
 								for (int x = (p.getCol()+ 1); x<=squareCol; x++)
 								{
-									System.out.println("Processing move[" +squareRow +"][" +x+ "]");
+									GameManager.getInstance().processMove(x, squareCol);
+//									System.out.println("Processing move[" +squareRow +"][" +x+ "]");
 									if(x == squareCol && s[squareRow][x].getVaccancy() == false && p.getColor() != s[squareRow][x].getPiece().getColor() )
 									{
 										if (GameManager.getInstance().isProcessingKing() == false)
