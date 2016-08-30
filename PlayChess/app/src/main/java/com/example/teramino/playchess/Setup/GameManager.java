@@ -388,6 +388,11 @@ public class GameManager {
 		System.out.println("Processing Move Col=["+x+"] Row=["+squareCol+"]");
 	}
 
+	// Prints Active Piece to console. Piece is sent from Board class in first Click function
+	public void showActivePiece(Piece p){
+		System.out.println("Active Piece: "+p.getName());
+	}
+
 	public boolean isProcessingKing() {
 		return processingKing;
 	}

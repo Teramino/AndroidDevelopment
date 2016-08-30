@@ -333,7 +333,11 @@ pieces are addressed in order from left to right started with the left rook
 
 											// print out name | use this to set piece name and original piece location
 											System.out.println("====================");
-											System.out.println(myPieces[i].getName());
+
+											// Sends Acitve Piece to Game Manager to print name to console
+											GameManager.getInstance().showActivePiece(myPieces[i]);
+//											System.out.println(myPieces[i].getName());
+
 											// positions printing our wrong
 											System.out.println("Row: " + myPieces[i].getRow() + " Col: " + myPieces[i].getCol() + "\n");
 
