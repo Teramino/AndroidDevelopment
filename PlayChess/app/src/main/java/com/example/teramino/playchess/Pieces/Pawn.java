@@ -3,7 +3,6 @@ import com.example.teramino.playchess.Setup.GameManager;
 import com.example.teramino.playchess.Setup.Square;
 
 
-
 public class Pawn extends Piece
 {
 	private boolean pawnMoved = false;
@@ -14,7 +13,7 @@ public class Pawn extends Piece
 	}
 
 	@Override
-	public Square canMove( Piece p, Square [][] s, int squareCol, int squareRow) {
+	public Square canMove(Piece p, Square [][] s, int squareCol, int squareRow) {
 //
 //		else if (  p.getsquareColor() == squareColor.lightGray)
 //		{
@@ -30,9 +29,9 @@ public class Pawn extends Piece
 							if (pawnMoved == false && p.getRow() - 2 == s[i][j].getRow() && p.getCol() == s[i][j].getCol()) {
 
 								if (s[i][j].getVaccancy() == true) {
-
-									System.out.println("Good");
-									System.out.println("====================");
+//									System.out.println("Good");
+//									System.out.println("====================");
+									GameManager.getInstance().pawnMoveOutput(p, i, j);
 									return s[i][j];
 								}
 
@@ -40,9 +39,9 @@ public class Pawn extends Piece
 							// move one space
 							else if (p.getRow() - 1 == s[i][j].getRow() && p.getCol() == s[i][j].getCol()) {
 								if (s[i][j].getVaccancy() == true) {
-
-									System.out.println("Good");
-									System.out.println("====================");
+//									System.out.println("Good");
+//									System.out.println("====================");
+									GameManager.getInstance().pawnMoveOutput(p, i, j);
 									return s[i][j];
 								}
 							}
@@ -50,9 +49,9 @@ public class Pawn extends Piece
 							else if (p.getRow() - 1 == s[i][j].getRow() && p.getCol() - 1 == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor()) {
 								if (GameManager.getInstance().isProcessingKing() == false) {
 									p.takePiece(s[i][j].getPiece());
-
-									System.out.println("Good");
-									System.out.println("====================");
+//									System.out.println("Good");
+//									System.out.println("====================");
+									GameManager.getInstance().pawnMoveOutput(p, i, j);
 									return s[i][j];
 								}
 								else // if true move doesnt actually happen
@@ -62,16 +61,17 @@ public class Pawn extends Piece
 							else if (p.getRow() - 1 == s[i][j].getRow() && p.getCol() + 1 == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor()) {
 								if (GameManager.getInstance().isProcessingKing() == false) {
 									p.takePiece(s[i][j].getPiece());
-
-									System.out.println("Good");
-									System.out.println("====================");
+//									System.out.println("Good");
+//									System.out.println("====================");
+									GameManager.getInstance().pawnMoveOutput(p, i, j);
 									return s[i][j];
 								} else
 									return s[i][j];
 							}
 							else {
-								System.out.println("Can't move there\n");
-								System.out.println("====================");
+//								System.out.println("Can't move there\n");
+//								System.out.println("====================");
+								GameManager.getInstance().pawnMoveOutput(p, i, j);
 								return null;
 							}// end else
 						}// end if
@@ -82,9 +82,9 @@ public class Pawn extends Piece
 								if (pawnMoved == false && p.getRow() + 2 == s[i][j].getRow() && p.getCol() == s[i][j].getCol()) {
 
 									if (s[i][j].getVaccancy() == true) {
-
-										System.out.println("Good");
-										System.out.println("====================");
+//										System.out.println("Good");
+//										System.out.println("====================");
+										GameManager.getInstance().pawnMoveOutput(p, i, j);
 										return s[i][j];
 									}
 
@@ -92,9 +92,9 @@ public class Pawn extends Piece
 								// move one space
 								else if (p.getRow() + 1 == s[i][j].getRow() && p.getCol() == s[i][j].getCol()) {
 									if (s[i][j].getVaccancy() == true) {
-
-										System.out.println("Good");
-										System.out.println("====================");
+//										System.out.println("Good");
+//										System.out.println("====================");
+										GameManager.getInstance().pawnMoveOutput(p, i, j);
 										return s[i][j];
 									}
 								}
@@ -102,9 +102,9 @@ public class Pawn extends Piece
 								else if (p.getRow() + 1 == s[i][j].getRow() && p.getCol() - 1 == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor()) {
 									if (GameManager.getInstance().isProcessingKing() == false) {
 										p.takePiece(s[i][j].getPiece());
-
-										System.out.println("Good");
-										System.out.println("====================");
+//										System.out.println("Good");
+//										System.out.println("====================");
+										GameManager.getInstance().pawnMoveOutput(p, i, j);
 										return s[i][j];
 									}
 									else
@@ -114,16 +114,17 @@ public class Pawn extends Piece
 								else if (p.getRow() + 1 == s[i][j].getRow() && p.getCol() + 1 == s[i][j].getCol() && s[i][j].getVaccancy() == false && p.getColor() != s[i][j].getPiece().getColor()) {
 									if (GameManager.getInstance().isProcessingKing() == false) {
 										p.takePiece(s[i][j].getPiece());
-
-										System.out.println("Good");
-										System.out.println("====================");
+//										System.out.println("Good");
+//										System.out.println("====================");
+										GameManager.getInstance().pawnMoveOutput(p, i, j);
 										return s[i][j];
 									} else
 										return s[i][j];
 								}
 								else {
-									System.out.println("Can't move there\n");
-									System.out.println("====================");
+//									System.out.println("Can't move there\n");
+//									System.out.println("====================");
+									GameManager.getInstance().pawnMoveOutput(p, i, j);
 									return null;
 								}// end else
 							}// end else if

@@ -383,6 +383,8 @@ public class GameManager {
 
 	}
 
+	// ================================ Debug Functions =================================== //
+
 	// Print Function for Each Piece Move Class
 	public void processMove(int x, int squareCol){
 		System.out.println("Processing Move Col=["+x+"] Row=["+squareCol+"]");
@@ -392,6 +394,13 @@ public class GameManager {
 	public void showActivePiece(Piece p){
 		System.out.println("Active Piece: "+p.getName());
 	}
+
+	// 
+	public void pawnMoveOutput(Piece p, int row, int col){
+		System.out.println(p.getName()+" moved to "+"Col=["+col+"] Row=["+row+"]");
+	}
+
+	// ================================ End of Debug Functions ============================= //
 
 	public boolean isProcessingKing() {
 		return processingKing;
