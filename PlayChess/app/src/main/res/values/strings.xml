@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PlayChess</string>
+    <string name="active_piece">Active Piece</string>
 </resources>

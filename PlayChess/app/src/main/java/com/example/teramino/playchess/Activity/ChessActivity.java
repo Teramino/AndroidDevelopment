@@ -34,12 +34,15 @@ public class ChessActivity extends AppCompatActivity {
    public Firebase mRef;
 
     public Button restart;
+    public Button activePiece;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chess_board);
+
+        activePiece = (Button) findViewById(R.id.activePieceButton);
 
         restart = (Button) findViewById(R.id.restartButton);
 
@@ -48,9 +51,6 @@ public class ChessActivity extends AppCompatActivity {
         Board board = Board.getInstance();
         board.getInstance().setupGame(this, chessBoard);
 
-
-
-
     }
 
 
@@ -58,6 +58,10 @@ public class ChessActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
+    }
+
+    public void activePieceButton(View v){
+        System.out.println("Active Piece Print");
     }
 
 

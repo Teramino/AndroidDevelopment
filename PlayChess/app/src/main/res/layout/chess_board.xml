@@ -11,7 +11,6 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/space"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/board"></TableLayout>
@@ -25,5 +24,16 @@
         android:onClick="restartButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activePieceButton"
+        android:layout_above="@+id/restartButton"
+        android:layout_alignLeft="@+id/restartButton"
+        android:layout_alignStart="@+id/restartButton"
+        android:layout_alignRight="@+id/restartButton"
+        android:layout_alignEnd="@+id/restartButton"
+        android:onClick="activePieceButton" />
 
 </RelativeLayout>
