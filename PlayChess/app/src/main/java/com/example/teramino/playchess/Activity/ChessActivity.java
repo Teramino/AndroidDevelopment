@@ -15,6 +15,7 @@ import android.widget.TableRow;
 import com.example.teramino.playchess.Pieces.Piece;
 import com.example.teramino.playchess.R;
 import com.example.teramino.playchess.Setup.Board;
+import com.example.teramino.playchess.Setup.GameManager;
 import com.example.teramino.playchess.Setup.Square;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -61,7 +62,17 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void activePieceButton(View v){
+
+        // Test Output
         System.out.println("Active Piece Print");
+
+        // Check if an Active Piece is selected
+
+        // Retrieve all possible moves for Active Piece
+
+        // Paint all possible squares that can be moved to
+
+
     }
 
 

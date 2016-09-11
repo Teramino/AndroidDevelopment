@@ -585,7 +585,7 @@ pieces are addressed in order from left to right started with the left rook
 			chessBoard.addView(tr);
 //            count = 8;
 		}// end first for
-	}
+	} // End of setBoard Function
 
 	public int imageUpload(Piece p, int pieceImageIndex){
 		if (p.getColor() == "White"){
